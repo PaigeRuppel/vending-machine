@@ -1,15 +1,24 @@
 package com.paigeruppel.katas.vendingmachine;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
 
 public class CoinSlot {
 
 
-    public int acceptPayment(Coin coin) {
-        if (!coin.equals(NICKEL) && !coin.equals(DIME)) {
-            return 25;
-        }
-        return (coin.equals(NICKEL) ? 5 : 10);
+
+    public int determineValue(Coin coin) {
+        return validCoins().get(coin);
+    }
+
+    private static Map<Coin, Integer> validCoins() {
+        Map<Coin, Integer> validCoinsAndValues = new HashMap<>();
+        validCoinsAndValues.put(NICKEL, 5);
+        validCoinsAndValues.put(DIME, 10);
+        validCoinsAndValues.put(QUARTER, 25);
+        return validCoinsAndValues;
     }
 
 
