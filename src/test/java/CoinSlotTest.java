@@ -20,4 +20,11 @@ public class CoinSlotTest {
         underTest = new CoinSlot();
         assertThat(underTest.acceptPayment("dime"), is(10));
     }
+
+    @Test
+    public void shouldReturnValue25WhenQuarterIsAccepted() {
+        underTest = new CoinSlot();
+        assertThat(underTest.acceptPayment("quarter"), is(25));
+    }
+
 }
