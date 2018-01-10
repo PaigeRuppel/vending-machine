@@ -14,4 +14,10 @@ public class CoinSlotTest {
         underTest = new CoinSlot();
         assertThat(underTest.acceptPayment("nickel"), is(5));
     }
+
+    @Test
+    public void shouldReturnValue10WhenDimeIsAccepted() {
+        underTest = new CoinSlot();
+        assertThat(underTest.acceptPayment("dime"), is(10));
+    }
 }

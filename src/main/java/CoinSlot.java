@@ -1,7 +1,8 @@
 public class CoinSlot {
 
     public int acceptPayment(String coin) {
-        return 5;
+
+        return (coin.equals("nickel") ? 5 : 10);
     }
 
 
