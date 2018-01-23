@@ -33,9 +33,9 @@ public class CoinSlotTest {
     }
 
 
-    @Test (expected = InvalidPaymentException.class)
-    public void pennyShouldThrowInvalidPaymentException() throws InvalidPaymentException {
-        underTest.acceptCoin(PENNY);
+    @Test
+    public void pennyShouldGiveZeroValue() {
+        assertThat(underTest.acceptCoin(PENNY), is(0));
     }
 
 

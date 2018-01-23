@@ -7,16 +7,13 @@ import static com.paigeruppel.katas.vendingmachine.Coin.*;
 
 public class CoinSlot {
 
-    private CoinReturn coinReturn;
+    private CoinReturn coinReturn = new CoinReturn();
 
 
-    public int acceptCoin(Coin coin) throws InvalidPaymentException {
-        int value = 0;
-        try {
-            value = validCoins().get(coin);
-        } catch (Exception e) {
-            value = 0;
-            throw new InvalidPaymentException("Please insert either a quarter, dime, or nickel.", e);
+    public int acceptCoin(Coin coin) {
+        int value = validCoins().getOrDefault(coin, 0);
+        if (value == 0) {
+            coinReturn.returnCoin(coin);
         }
         return value;
     }
