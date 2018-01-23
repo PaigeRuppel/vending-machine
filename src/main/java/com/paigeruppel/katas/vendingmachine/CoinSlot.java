@@ -7,6 +7,9 @@ import static com.paigeruppel.katas.vendingmachine.Coin.*;
 
 public class CoinSlot {
 
+    private CoinReturn coinReturn;
+
+
     public int acceptCoin(Coin coin) throws InvalidPaymentException {
         int value = 0;
         try {

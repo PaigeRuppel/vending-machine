@@ -38,16 +38,5 @@ public class CoinSlotTest {
         underTest.acceptCoin(PENNY);
     }
 
-//    Do I need to write a test around an exception? Should I mock?
-//    @Test
-//    public void shouldRaiseInvalidCoinExceptionWhenPennyIsInserted() throws InvalidPaymentException {
-//        try {
-//            int penny = underTest.getValue(PENNY);
-//            Assert.fail("Fail! Method was expected to throw an exception because pennies are not a valid payment.");
-//        } catch (InvalidPaymentException e) {
-//            // expected
-//        }
-//    }
-
 
 }
