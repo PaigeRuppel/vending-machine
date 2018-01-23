@@ -7,16 +7,15 @@ import static com.paigeruppel.katas.vendingmachine.Coin.*;
 
 public class CoinSlot {
 
-
-
-    public int determineValue(Coin coin) throws InvalidPaymentException {
-        if (validCoins().containsKey(coin)) {
-            return validCoins().get(coin);
-        } else {
-            throw new InvalidPaymentException(
-                    "Please insert either a quarter, dime, or nickel."
-            );
+    public int acceptCoin(Coin coin) throws InvalidPaymentException {
+        int value = 0;
+        try {
+            value = validCoins().get(coin);
+        } catch (Exception e) {
+            value = 0;
+            throw new InvalidPaymentException("Please insert either a quarter, dime, or nickel.", e);
         }
+        return value;
     }
 
     private static Map<Coin, Integer> validCoins() {

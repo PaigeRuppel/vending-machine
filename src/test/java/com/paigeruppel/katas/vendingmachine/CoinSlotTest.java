@@ -2,10 +2,7 @@ package com.paigeruppel.katas.vendingmachine;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
 import static org.hamcrest.core.Is.is;
@@ -22,27 +19,35 @@ public class CoinSlotTest {
 
     @Test
     public void shouldReturnValue5WhenNickelIsAccepted() throws InvalidPaymentException {
-        assertThat(underTest.determineValue(NICKEL), is(5));
+        assertThat(underTest.acceptCoin(NICKEL), is(5));
     }
 
     @Test
     public void shouldReturnValue10WhenDimeIsAccepted() throws InvalidPaymentException {
-        assertThat(underTest.determineValue(DIME), is(10));
+        assertThat(underTest.acceptCoin(DIME), is(10));
     }
 
     @Test
-    public void shouldReturnValue25WhenQuarterIsAccepted() throws InvalidPaymentException{
-        assertThat(underTest.determineValue(QUARTER), is(25));
+    public void shouldReturnValue25WhenQuarterIsAccepted() throws InvalidPaymentException {
+        assertThat(underTest.acceptCoin(QUARTER), is(25));
     }
 
-    @Test
-    public void shouldRaiseInvalidCoinExceptionWhenPennyIsInserted() throws InvalidPaymentException {
-        try {
-            int penny = underTest.determineValue(PENNY);
-            Assert.fail("Fail! Method was expected to throw an exception because pennies are not a valid payment.");
-        } catch (InvalidPaymentException e) {
-            // expected
-        }
+
+    @Test (expected = InvalidPaymentException.class)
+    public void pennyShouldThrowInvalidPaymentException() throws InvalidPaymentException {
+        underTest.acceptCoin(PENNY);
     }
+
+//    Do I need to write a test around an exception? Should I mock?
+//    @Test
+//    public void shouldRaiseInvalidCoinExceptionWhenPennyIsInserted() throws InvalidPaymentException {
+//        try {
+//            int penny = underTest.getValue(PENNY);
+//            Assert.fail("Fail! Method was expected to throw an exception because pennies are not a valid payment.");
+//        } catch (InvalidPaymentException e) {
+//            // expected
+//        }
+//    }
+
 
 }
