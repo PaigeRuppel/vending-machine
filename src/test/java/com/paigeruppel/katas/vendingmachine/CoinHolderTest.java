@@ -19,11 +19,11 @@ public class CoinHolderTest {
 
     @Test
     public void whenNickelIsValidatedShouldAddValue5ToDisplay() {
-        assertThat(underTest.acceptCoin(NICKEL, 5), is(5));
+        assertThat(underTest.acceptCoin(NICKEL, 0.05), is(0.05));
     }
 
     @Test
     public void whenDimeIsValidatedShouldAddValue10ToDisplay() {
-        assertThat(underTest.acceptCoin(DIME, 10), is(10));
+        assertThat(underTest.acceptCoin(DIME, 0.10), is(0.10));
     }
 }

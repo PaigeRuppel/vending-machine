@@ -2,7 +2,7 @@ package com.paigeruppel.katas.vendingmachine;
 
 public class CoinHolder {
 
-    public int acceptCoin(Coin coin, Integer value) {
+    public double acceptCoin(Coin coin, double value) {
         return value;
     }
 }

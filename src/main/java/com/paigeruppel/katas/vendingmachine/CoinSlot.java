@@ -9,22 +9,24 @@ public class CoinSlot {
 
     private CoinReturn coinReturn = new CoinReturn();
     private CoinHolder coinHolder = new CoinHolder();
+    private VendingDisplay display = new VendingDisplay();
 
-    public int validateCoin(Coin coin) {
-        int value = validCoins().getOrDefault(coin, 0);
+    public double validateCoin(Coin coin) {
+        double value = validCoins().getOrDefault(coin, 0.0);
         if (value == 0) {
             coinReturn.returnCoin(coin);
         } else {
             coinHolder.acceptCoin(coin, value);
+            display.addValue(value);
         }
         return value;
     }
 
-    private static Map<Coin, Integer> validCoins() {
-        Map<Coin, Integer> validCoinsAndValues = new HashMap<>();
-        validCoinsAndValues.put(NICKEL, 5);
-        validCoinsAndValues.put(DIME, 10);
-        validCoinsAndValues.put(QUARTER, 25);
+    private static Map<Coin, Double> validCoins() {
+        Map<Coin, Double> validCoinsAndValues = new HashMap<>();
+        validCoinsAndValues.put(NICKEL, 0.05);
+        validCoinsAndValues.put(DIME, 0.10);
+        validCoinsAndValues.put(QUARTER, 0.25);
         return validCoinsAndValues;
     }
 

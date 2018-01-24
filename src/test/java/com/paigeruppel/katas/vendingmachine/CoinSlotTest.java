@@ -17,18 +17,18 @@ public class CoinSlotTest {
     }
 
     @Test
-    public void shouldReturnValue5WhenNickelIsAccepted() throws InvalidPaymentException {
-        assertThat(underTest.validateCoin(NICKEL), is(5));
+    public void shouldReturnValue5WhenNickelIsAccepted() {
+        assertThat(underTest.validateCoin(NICKEL), is(0.05));
     }
 
     @Test
-    public void shouldReturnValue10WhenDimeIsAccepted() throws InvalidPaymentException {
-        assertThat(underTest.validateCoin(DIME), is(10));
+    public void shouldReturnValue10WhenDimeIsAccepted() {
+        assertThat(underTest.validateCoin(DIME), is(0.10));
     }
 
     @Test
-    public void shouldReturnValue25WhenQuarterIsAccepted() throws InvalidPaymentException {
-        assertThat(underTest.validateCoin(QUARTER), is(25));
+    public void shouldReturnValue25WhenQuarterIsAccepted() {
+        assertThat(underTest.validateCoin(QUARTER), is(0.25));
     }
 
 
