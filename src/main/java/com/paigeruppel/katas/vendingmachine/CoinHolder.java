@@ -1,8 +1,21 @@
 package com.paigeruppel.katas.vendingmachine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CoinHolder {
 
-    public double acceptCoin(Coin coin, double value) {
-        return value;
+    private List<Coin> coinsInHolder;
+
+    public CoinHolder() {
+        coinsInHolder = new ArrayList<>();
+    }
+
+    public void acceptCoin(Coin coin) {
+        coinsInHolder.add(coin);
+    }
+
+    public List<Coin> heldCoins() {
+        return coinsInHolder;
     }
 }

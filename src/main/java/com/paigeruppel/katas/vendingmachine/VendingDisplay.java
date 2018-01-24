@@ -6,7 +6,7 @@ public class VendingDisplay {
     private final String NO_VALUE_MESSAGE = "INSERT COIN";
 
     public String displayMessage() {
-        return (insertedValue == 0) ? NO_VALUE_MESSAGE : "" + displayInsertedValue();
+        return (insertedValue == 0) ? NO_VALUE_MESSAGE : displayInsertedValue();
     }
 
     public void addValue(double value) {

@@ -16,7 +16,7 @@ public class CoinSlot {
         if (value == 0) {
             coinReturn.returnCoin(coin);
         } else {
-            coinHolder.acceptCoin(coin, value);
+            coinHolder.acceptCoin(coin);
             display.addValue(value);
         }
         return value;
