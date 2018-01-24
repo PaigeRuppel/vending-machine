@@ -1,6 +1,5 @@
 package com.paigeruppel.katas.vendingmachine;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,23 +18,23 @@ public class CoinSlotTest {
 
     @Test
     public void shouldReturnValue5WhenNickelIsAccepted() throws InvalidPaymentException {
-        assertThat(underTest.acceptCoin(NICKEL), is(5));
+        assertThat(underTest.validateCoin(NICKEL), is(5));
     }
 
     @Test
     public void shouldReturnValue10WhenDimeIsAccepted() throws InvalidPaymentException {
-        assertThat(underTest.acceptCoin(DIME), is(10));
+        assertThat(underTest.validateCoin(DIME), is(10));
     }
 
     @Test
     public void shouldReturnValue25WhenQuarterIsAccepted() throws InvalidPaymentException {
-        assertThat(underTest.acceptCoin(QUARTER), is(25));
+        assertThat(underTest.validateCoin(QUARTER), is(25));
     }
 
 
     @Test
     public void pennyShouldGiveZeroValue() {
-        assertThat(underTest.acceptCoin(PENNY), is(0));
+        assertThat(underTest.validateCoin(PENNY), is(0));
     }
 
 

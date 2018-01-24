@@ -8,12 +8,14 @@ import static com.paigeruppel.katas.vendingmachine.Coin.*;
 public class CoinSlot {
 
     private CoinReturn coinReturn = new CoinReturn();
+    private CoinHolder coinHolder = new CoinHolder();
 
-
-    public int acceptCoin(Coin coin) {
+    public int validateCoin(Coin coin) {
         int value = validCoins().getOrDefault(coin, 0);
         if (value == 0) {
             coinReturn.returnCoin(coin);
+        } else {
+            coinHolder.acceptCoin(coin, value);
         }
         return value;
     }
