@@ -64,4 +64,18 @@ public class CoinBankTest {
         underTest = new CoinBank(coinsInBank);
         assertTrue(underTest.requiresExactChangeOnly());
     }
+
+    @Test
+    public void whenBankHasThreNickelsShouldNotRequireExactChangeOnly() {
+        List<Coin> coinsInBank = fillBank(NICKEL, NICKEL, NICKEL);
+        underTest = new CoinBank(coinsInBank);
+        assertFalse(underTest.requiresExactChangeOnly());
+    }
+
+    @Test
+    public void whenBankHasTwoDimesShouldRequireExactChangeOnly() {
+        List<Coin> coinsInBank = fillBank(DIME, DIME);
+        underTest = new CoinBank(coinsInBank);
+        assertTrue(underTest.requiresExactChangeOnly());
+    }
 }

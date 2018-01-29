@@ -14,11 +14,9 @@ public class CoinBank {
         this.coinsInBank = coinsInBank;
     }
 
-    //always need a nickel and a balance of at least ten cents
     public boolean requiresExactChangeOnly() {
-        return count(NICKEL) < 2 && count(DIME) == 0;
+        return count(NICKEL) < 2 && count(DIME)== 0 || count(NICKEL) == 0;
     }
-
 
     private int count(Coin coin) {
         int coinCount = 0;
@@ -29,6 +27,5 @@ public class CoinBank {
         }
         return coinCount;
     }
-
 
 }
