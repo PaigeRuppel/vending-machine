@@ -6,6 +6,7 @@ import java.util.List;
 public class CoinHolder {
 
     private List<Coin> coinsInHolder;
+    private CoinReturn returnSlot = new CoinReturn();
 
     public CoinHolder() {
         coinsInHolder = new ArrayList<>();
@@ -17,5 +18,12 @@ public class CoinHolder {
 
     public List<Coin> heldCoins() {
         return coinsInHolder;
+    }
+
+    public void sendCoinsToReturn(Coin... args) {
+        for (Coin c: args) {
+            coinsInHolder.remove(c);
+            returnSlot.returnCoin(c);
+        }
     }
 }
