@@ -16,17 +16,18 @@ public class CoinBank {
 
     //always need a nickel and a balance of at least ten cents
     public boolean requiresExactChangeOnly() {
-        int nickels = 0;
-        int dimes = 0;
-        for (Coin c: coinsInBank) {
-            if (c.equals(NICKEL)) {
-                nickels++;
-            }
-            if (c.equals(DIME)) {
-                dimes++;
+        return count(NICKEL) < 2 && count(DIME) == 0;
+    }
+
+
+    private int count(Coin coin) {
+        int coinCount = 0;
+        for (Coin c : coinsInBank) {
+            if (c.equals(coin)) {
+                coinCount++;
             }
         }
-        return nickels < 2 && dimes == 0;
+        return coinCount;
     }
 
 
