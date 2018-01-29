@@ -10,6 +10,6 @@ public class CoinBank {
     }
 
     public boolean requiresExactChangeOnly() {
-        return coinsInBank.isEmpty();
+        return coinsInBank.isEmpty() || coinsInBank.size() <= 2;
     }
 }

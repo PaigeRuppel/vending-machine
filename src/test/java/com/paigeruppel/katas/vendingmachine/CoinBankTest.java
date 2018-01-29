@@ -16,11 +16,11 @@ public class CoinBankTest {
     private CoinBank underTest;
 
     private List<Coin> fillBank(Coin... args) {
-        List<Coin> coinsInBank = new ArrayList<>();
+        List<Coin> coinList = new ArrayList<>();
         for (Coin c : args) {
-            coinsInBank.add(c);
+            coinList.add(c);
         }
-        return coinsInBank;
+        return coinList;
     }
 
     @Test
@@ -35,5 +35,19 @@ public class CoinBankTest {
         List<Coin> coinsInBank = fillBank(NICKEL, DIME, QUARTER);
         underTest = new CoinBank(coinsInBank);
         assertFalse(underTest.requiresExactChangeOnly());
+    }
+
+    @Test
+    public void whenCoinsInBankOnlyHasANickelShouldRequireExactChangeOnly() {
+        List<Coin> coinsInBank = fillBank(NICKEL);
+        underTest = new CoinBank(coinsInBank);
+        assertTrue(underTest.requiresExactChangeOnly());
+    }
+
+    @Test
+    public void whenCoinsInBankOnlyHasANickelAndADimeShouldRequireExactChangeOnly() {
+        List<Coin> coinsInBank = fillBank(NICKEL, DIME);
+        underTest = new CoinBank(coinsInBank);
+        assertTrue(underTest.requiresExactChangeOnly());
     }
 }
