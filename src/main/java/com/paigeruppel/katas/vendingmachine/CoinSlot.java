@@ -31,4 +31,7 @@ public class CoinSlot {
     }
 
 
+    public boolean isValid(Coin nickel) {
+        return true;
+    }
 }

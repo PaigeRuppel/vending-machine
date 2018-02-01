@@ -6,6 +6,7 @@ import org.junit.Test;
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class CoinSlotTest {
 
@@ -18,7 +19,7 @@ public class CoinSlotTest {
 
     @Test
     public void shouldReturnValue5WhenNickelIsAccepted() {
-        assertThat(underTest.validateCoin(NICKEL), is(0.05));
+        assertTrue(underTest.isValid(NICKEL));
     }
 
     @Test
@@ -34,7 +35,7 @@ public class CoinSlotTest {
 
     @Test
     public void pennyShouldGiveZeroValue() {
-        assertThat(underTest.validateCoin(PENNY), is(0));
+        assertThat(underTest.validateCoin(PENNY), is(0.0));
     }
 
 
