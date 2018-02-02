@@ -12,6 +12,12 @@ public class CoinBank implements CoinAcceptor {
         coinsInBank = new ArrayList<>();
     }
 
+    public void stock(List<Coin> coinsToStock) {
+        for (Coin c : coinsToStock) {
+            coinsInBank.add(c);
+        }
+    }
+
     public void accept(Coin coin) {
         coinsInBank.add(coin);
     }
@@ -21,7 +27,15 @@ public class CoinBank implements CoinAcceptor {
     }
 
     public boolean requiresExactChangeOnly() {
-        return count(NICKEL) < 2 && count(DIME)== 0 || count(NICKEL) == 0;
+        return canNotReturnTenCents() || canNotReturnFiveCents();
+    }
+
+    private boolean canNotReturnFiveCents() {
+        return count(NICKEL) == 0;
+    }
+
+    private boolean canNotReturnTenCents() {
+        return count(NICKEL) < 2 && count(DIME)== 0;
     }
 
     private int count(Coin coin) {
@@ -32,11 +46,5 @@ public class CoinBank implements CoinAcceptor {
             }
         }
         return coinCount;
-    }
-
-    public void stock(List<Coin> coinsToStock) {
-        for (Coin c : coinsToStock) {
-            coinsInBank.add(c);
-        }
     }
 }
