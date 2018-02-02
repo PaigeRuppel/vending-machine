@@ -14,7 +14,7 @@ public class CoinBankTest {
 
     private CoinBank underTest;
 
-    private List<Coin> fillBank(Coin... args) {
+    private List<Coin> buildCoinList(Coin... args) {
         List<Coin> coinList = new ArrayList<>();
         for (Coin c : args) {
             coinList.add(c);
@@ -22,20 +22,20 @@ public class CoinBankTest {
         return coinList;
     }
 
-//    @Test
-//    public void whenBankIsEmptyShouldRequireExactChangeOnly() {
-//        List<Coin> coinsInBank = Collections.emptyList();
-//        underTest = new CoinBank(coinsInBank);
-//        assertTrue(underTest.requiresExactChangeOnly());
-//    }
-//
-//    @Test
-//    public void whenNickelDimeAndQuarterAreInBankShouldNotRequireExactChange() {
-//        List<Coin> coinsInBank = fillBank(NICKEL, DIME, QUARTER);
-//        underTest = new CoinBank(coinsInBank);
-//        assertFalse(underTest.requiresExactChangeOnly());
-//    }
-//
+    @Test
+    public void whenBankIsEmptyShouldRequireExactChangeOnly() {
+        underTest = new CoinBank();
+        assertTrue(underTest.requiresExactChangeOnly());
+    }
+
+    @Test
+    public void whenNickelDimeAndQuarterAreInBankShouldNotRequireExactChange() {
+        List<Coin> nickelDimeAndQuarter = buildCoinList(NICKEL, DIME, QUARTER);
+        underTest = new CoinBank();
+        underTest.stock(nickelDimeAndQuarter);
+        assertFalse(underTest.requiresExactChangeOnly());
+    }
+
 //    @Test
 //    public void whenBankOnlyHasANickelShouldRequireExactChangeOnly() {
 //        List<Coin> coinsInBank = fillBank(NICKEL);

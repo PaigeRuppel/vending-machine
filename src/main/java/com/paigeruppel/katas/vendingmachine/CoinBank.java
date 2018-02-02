@@ -34,4 +34,9 @@ public class CoinBank implements CoinAcceptor {
         return coinCount;
     }
 
+    public void stock(List<Coin> coinsToStock) {
+        for (Coin c : coinsToStock) {
+            coinsInBank.add(c);
+        }
+    }
 }
