@@ -52,12 +52,18 @@ public class CoinBank implements CoinAcceptor {
         if (difference == 0.05){
             coinsInBank.remove(NICKEL);
         } else if (difference == 0.10) {
-            if (coinsInBank.contains(DIME)) {
-                coinsInBank.remove(DIME);
-            } else {
-                coinsInBank.remove(NICKEL);
-                coinsInBank.remove(NICKEL);
-            }
+            checkBankInventoryAndReturnTenCents();
+        } else if (difference == 0.25) {
+            coinsInBank.remove(QUARTER);
+        }
+    }
+
+    private void checkBankInventoryAndReturnTenCents() {
+        if (coinsInBank.contains(DIME)) {
+            coinsInBank.remove(DIME);
+        } else {
+            coinsInBank.remove(NICKEL);
+            coinsInBank.remove(NICKEL);
         }
     }
 }

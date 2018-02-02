@@ -108,4 +108,13 @@ public class CoinBankTest {
         List<Coin> twoNickels = buildCoinList(NICKEL, NICKEL);
         assertThat(underTest.availableCoins(), is(twoNickels));
     }
+
+    @Test
+    public void whenReturnAmountIs25CentsShouldRemoveAQuarterFromCoinsInBank() {
+        List<Coin> fourNickelsAndAQuarter = buildCoinList(NICKEL, NICKEL, NICKEL, NICKEL, QUARTER);
+        underTest.stock(fourNickelsAndAQuarter);
+        underTest.returnChange(0.25);
+        List<Coin> fourNickels = buildCoinList(NICKEL, NICKEL, NICKEL, NICKEL);
+        assertThat(underTest.availableCoins(), is(fourNickels));
+    }
 }
