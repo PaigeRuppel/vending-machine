@@ -5,14 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
+import static com.paigeruppel.katas.vendingmachine.Constants.*;
 
 public class CoinBank implements CoinAcceptor {
     private List<Coin> coinsInBank;
 
-    private static final BigDecimal ZERO = new BigDecimal(0.00);
-    private static final BigDecimal TWENTY_FIVE_CENTS = new BigDecimal(0.25);
-    private static final BigDecimal TEN_CENTS = new BigDecimal(0.10);
-    private static final BigDecimal FIVE_CENTS = new BigDecimal(0.05);
 
     public CoinBank() {
         coinsInBank = new ArrayList<>();
@@ -59,13 +56,13 @@ public class CoinBank implements CoinAcceptor {
         while (amountToReturn.compareTo(BigDecimal.ZERO) == 1) {
             if (amountToReturn.compareTo(TWENTY_FIVE_CENTS) >= 0) {
                 checkBankInventoryAndReturnTwentyFiveCents();
-                amountToReturn = amountToReturn.subtract(TWENTY_FIVE_CENTS);
+                amountToReturn = amountToReturn.subtract(TWENTY_FIVE_CENTS, CENTS);
             } else if (amountToReturn.compareTo(TEN_CENTS) >= 0) {
                 checkBankInventoryAndReturnTenCents();
-                amountToReturn = amountToReturn.subtract(TEN_CENTS);
+                amountToReturn = amountToReturn.subtract(TEN_CENTS, CENTS);
             } else if (amountToReturn.compareTo(FIVE_CENTS) >= 0) {
                 checkBankInventoryAndReturnFiveCents();
-                amountToReturn = amountToReturn.subtract(FIVE_CENTS);
+                amountToReturn = amountToReturn.subtract(FIVE_CENTS, CENTS);
             }
         }
     }
