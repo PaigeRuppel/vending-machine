@@ -15,6 +15,10 @@ public class CoinBank implements CoinAcceptor {
 
     }
 
+    public List<Coin> availableCoins() {
+        return coinsInBank;
+    }
+
     public boolean requiresExactChangeOnly() {
         return count(NICKEL) < 2 && count(DIME)== 0 || count(NICKEL) == 0;
     }

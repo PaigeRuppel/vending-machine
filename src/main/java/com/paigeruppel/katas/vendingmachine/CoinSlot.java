@@ -5,7 +5,7 @@ import java.util.Map;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
 
-public class CoinSlot implements CoinAcceptor {
+public class CoinSlot {
 
     private VendingDisplay display = new VendingDisplay();
 
@@ -17,7 +17,7 @@ public class CoinSlot implements CoinAcceptor {
         this.invalidCoinAcceptor = invalidCoinAcceptor;
     }
 
-    public void accept(Coin coin) {
+    public void validate(Coin coin) {
         double value = validCoins().getOrDefault(coin, 0.0);
         if (value == 0) {
             validCoinAcceptor.accept(coin);

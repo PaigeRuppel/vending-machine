@@ -2,33 +2,53 @@ package com.paigeruppel.katas.vendingmachine;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.verify;
 
 public class CoinSlotTest {
 
-    private CoinSlot underTest;
 
-    private CoinAcceptor validCoinAcceptor;
-    private CoinAcceptor invalidCoinAcceptor;
+    @Spy
+    private CoinHolder mSpyValidCoinAcceptor;
+
+    @Spy
+    private CoinReturn mSpyInvalidCoinAcceptor;
+
+    @InjectMocks
+    private CoinSlot underTest;
 
     @Before
     public void setup() {
-        validCoinAcceptor = mock(CoinHolder.class);
-        invalidCoinAcceptor = mock(CoinReturn.class);
-        underTest = new CoinSlot(validCoinAcceptor, invalidCoinAcceptor);
+        MockitoAnnotations.initMocks(this);
+    }
+
+    private List<Coin> buildCoinList(Coin ... args) {
+        List<Coin> coinList = new ArrayList<>();
+        for (Coin c : args) {
+            coinList.add(c);
+        }
+        return coinList;
     }
 
     @Test
-    public void whenNickelIsAcceptedValidCoinAcceptorShouldReceiveCoin() {
-        doNothing().when(validCoinAcceptor).accept(NICKEL);
-
+    public void whenCoinSlotValidatesNickelValidCoinAcceptorShouldAcceptTheNickel() {
+        List<Coin> nickelOnly = buildCoinList(NICKEL);
+        underTest.validate(NICKEL);
+        assertThat(mSpyValidCoinAcceptor.availableCoins(), is(nickelOnly));
     }
+
 
     @Test
     public void dimeIsValid() {

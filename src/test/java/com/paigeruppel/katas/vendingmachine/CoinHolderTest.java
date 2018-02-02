@@ -30,21 +30,21 @@ public class CoinHolderTest {
 
     @Test
     public void whenNoCoinsAreInsertedShouldReturnEmptyList() {
-        assertThat(underTest.heldCoins(), is(Collections.emptyList()));
+        assertThat(underTest.availableCoins(), is(Collections.emptyList()));
     }
 
     @Test
     public void whenNickelIsAcceptedShouldReturnListWithNickel() {
         List<Coin> nickelOnly = buildCoinList(NICKEL);
         underTest.accept(NICKEL);
-        assertThat(underTest.heldCoins(), is(nickelOnly));
+        assertThat(underTest.availableCoins(), is(nickelOnly));
     }
 
     @Test
     public void whenDimeIsAcceptedShouldReturnListWithDime() {
        List<Coin> dimeOnly = buildCoinList(DIME);
        underTest.accept(DIME);
-       assertThat(underTest.heldCoins(), is(dimeOnly));
+       assertThat(underTest.availableCoins(), is(dimeOnly));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class CoinHolderTest {
         underTest.accept(NICKEL);
         underTest.accept(DIME);
         underTest.accept(QUARTER);
-        assertThat(underTest.heldCoins(), is(nickelDimeAndQuarter));
+        assertThat(underTest.availableCoins(), is(nickelDimeAndQuarter));
     }
 
     @Test
@@ -63,8 +63,8 @@ public class CoinHolderTest {
         underTest.accept(NICKEL);
         underTest.accept(NICKEL);
         underTest.accept(NICKEL);
-        assertThat(underTest.heldCoins(), is(threeNickels));
+        assertThat(underTest.availableCoins(), is(threeNickels));
         underTest.sendCoinsToReturn(NICKEL);
-        assertThat(underTest.heldCoins(), is(twoNickels));
+        assertThat(underTest.availableCoins(), is(twoNickels));
     }
 }

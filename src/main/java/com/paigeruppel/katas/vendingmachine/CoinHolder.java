@@ -16,7 +16,7 @@ public class CoinHolder implements CoinAcceptor {
         coinsInHolder.add(coin);
     }
 
-    public List<Coin> heldCoins() {
+    public List<Coin> availableCoins() {
         return coinsInHolder;
     }
 
