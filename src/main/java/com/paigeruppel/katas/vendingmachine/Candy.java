@@ -2,14 +2,14 @@ package com.paigeruppel.katas.vendingmachine;
 
 import java.math.BigDecimal;
 
-import static com.paigeruppel.katas.vendingmachine.Constants.ONE_DOLLAR;
+import static com.paigeruppel.katas.vendingmachine.Constants.SIXTY_FIVE_CENTS;
 
-public class Cola implements Product {
+public class Candy implements Product {
 
     private BigDecimal price;
 
-    public Cola() {
-        price = ONE_DOLLAR;
+    public Candy() {
+        price = SIXTY_FIVE_CENTS;
     }
 
     public BigDecimal getPrice() {
