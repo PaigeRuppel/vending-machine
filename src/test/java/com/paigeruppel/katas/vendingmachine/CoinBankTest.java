@@ -22,59 +22,59 @@ public class CoinBankTest {
         return coinList;
     }
 
-    @Test
-    public void whenBankIsEmptyShouldRequireExactChangeOnly() {
-        List<Coin> coinsInBank = Collections.emptyList();
-        underTest = new CoinBank(coinsInBank);
-        assertTrue(underTest.requiresExactChangeOnly());
-    }
-
-    @Test
-    public void whenNickelDimeAndQuarterAreInBankShouldNotRequireExactChange() {
-        List<Coin> coinsInBank = fillBank(NICKEL, DIME, QUARTER);
-        underTest = new CoinBank(coinsInBank);
-        assertFalse(underTest.requiresExactChangeOnly());
-    }
-
-    @Test
-    public void whenBankOnlyHasANickelShouldRequireExactChangeOnly() {
-        List<Coin> coinsInBank = fillBank(NICKEL);
-        underTest = new CoinBank(coinsInBank);
-        assertTrue(underTest.requiresExactChangeOnly());
-    }
-
-    @Test
-    public void whenBankOnlyHasANickelAndADimeShouldNotRequireExactChangeOnly() {
-        List<Coin> coinsInBank = fillBank(NICKEL, DIME);
-        underTest = new CoinBank(coinsInBank);
-        assertFalse(underTest.requiresExactChangeOnly());
-    }
-
-    @Test
-    public void whenBankOnlyHasAQuarterShouldRequireExactChange() {
-        List<Coin> coinsInBank = fillBank(QUARTER);
-        underTest = new CoinBank(coinsInBank);
-        assertTrue(underTest.requiresExactChangeOnly());
-    }
-
-    @Test
-    public void whenBankHasTwoQuartersShouldRequireExactChangeOnly() {
-        List<Coin> coinsInBank = fillBank(QUARTER, QUARTER);
-        underTest = new CoinBank(coinsInBank);
-        assertTrue(underTest.requiresExactChangeOnly());
-    }
-
-    @Test
-    public void whenBankHasThreNickelsShouldNotRequireExactChangeOnly() {
-        List<Coin> coinsInBank = fillBank(NICKEL, NICKEL, NICKEL);
-        underTest = new CoinBank(coinsInBank);
-        assertFalse(underTest.requiresExactChangeOnly());
-    }
-
-    @Test
-    public void whenBankHasTwoDimesShouldRequireExactChangeOnly() {
-        List<Coin> coinsInBank = fillBank(DIME, DIME);
-        underTest = new CoinBank(coinsInBank);
-        assertTrue(underTest.requiresExactChangeOnly());
-    }
+//    @Test
+//    public void whenBankIsEmptyShouldRequireExactChangeOnly() {
+//        List<Coin> coinsInBank = Collections.emptyList();
+//        underTest = new CoinBank(coinsInBank);
+//        assertTrue(underTest.requiresExactChangeOnly());
+//    }
+//
+//    @Test
+//    public void whenNickelDimeAndQuarterAreInBankShouldNotRequireExactChange() {
+//        List<Coin> coinsInBank = fillBank(NICKEL, DIME, QUARTER);
+//        underTest = new CoinBank(coinsInBank);
+//        assertFalse(underTest.requiresExactChangeOnly());
+//    }
+//
+//    @Test
+//    public void whenBankOnlyHasANickelShouldRequireExactChangeOnly() {
+//        List<Coin> coinsInBank = fillBank(NICKEL);
+//        underTest = new CoinBank(coinsInBank);
+//        assertTrue(underTest.requiresExactChangeOnly());
+//    }
+//
+//    @Test
+//    public void whenBankOnlyHasANickelAndADimeShouldNotRequireExactChangeOnly() {
+//        List<Coin> coinsInBank = fillBank(NICKEL, DIME);
+//        underTest = new CoinBank(coinsInBank);
+//        assertFalse(underTest.requiresExactChangeOnly());
+//    }
+//
+//    @Test
+//    public void whenBankOnlyHasAQuarterShouldRequireExactChange() {
+//        List<Coin> coinsInBank = fillBank(QUARTER);
+//        underTest = new CoinBank(coinsInBank);
+//        assertTrue(underTest.requiresExactChangeOnly());
+//    }
+//
+//    @Test
+//    public void whenBankHasTwoQuartersShouldRequireExactChangeOnly() {
+//        List<Coin> coinsInBank = fillBank(QUARTER, QUARTER);
+//        underTest = new CoinBank(coinsInBank);
+//        assertTrue(underTest.requiresExactChangeOnly());
+//    }
+//
+//    @Test
+//    public void whenBankHasThreNickelsShouldNotRequireExactChangeOnly() {
+//        List<Coin> coinsInBank = fillBank(NICKEL, NICKEL, NICKEL);
+//        underTest = new CoinBank(coinsInBank);
+//        assertFalse(underTest.requiresExactChangeOnly());
+//    }
+//
+//    @Test
+//    public void whenBankHasTwoDimesShouldRequireExactChangeOnly() {
+//        List<Coin> coinsInBank = fillBank(DIME, DIME);
+//        underTest = new CoinBank(coinsInBank);
+//        assertTrue(underTest.requiresExactChangeOnly());
+//    }
 }

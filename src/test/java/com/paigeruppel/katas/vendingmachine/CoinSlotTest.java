@@ -3,6 +3,7 @@ package com.paigeruppel.katas.vendingmachine;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
@@ -42,14 +43,14 @@ public class CoinSlotTest {
     @Test
     public void whenCoinSlotReceivesNickelValidCoinAcceptorShouldAcceptTheNickel() {
         List<Coin> nickelOnly = buildCoinList(NICKEL);
-        underTest.recieve(NICKEL);
+        underTest.receive(NICKEL);
         assertThat(mSpyValidCoinAcceptor.availableCoins(), is(nickelOnly));
     }
 
     @Test
-    public void whenCoinSlotRecievesPennyInvalidCoinAcceptorShouldAcceptThePenny() {
+    public void whenCoinSlotReceivesPennyInvalidCoinAcceptorShouldAcceptThePenny() {
         List<Coin> pennyOnly = buildCoinList(PENNY);
-        underTest.recieve(PENNY);
+        underTest.receive(PENNY);
         assertThat(mSpyInvalidCoinAcceptor.availableCoins(), is(pennyOnly));
     }
 
@@ -57,15 +58,15 @@ public class CoinSlotTest {
     public void whenCoinSlotReceivesMultipleCoinsInvalidAcceptorShouldAcceptAllPenniesAndValidAcceptorShouldAcceptAllOthers() {
         List<Coin> threePennies = buildCoinList(PENNY, PENNY, PENNY);
         List<Coin> threeNickelsOneDimeAndTwoQuarters = buildCoinList(NICKEL, NICKEL, NICKEL, DIME, QUARTER, QUARTER);
-        underTest.recieve(PENNY);
-        underTest.recieve(PENNY);
-        underTest.recieve(PENNY);
-        underTest.recieve(NICKEL);
-        underTest.recieve(NICKEL);
-        underTest.recieve(NICKEL);
-        underTest.recieve(DIME);
-        underTest.recieve(QUARTER);
-        underTest.recieve(QUARTER);
+        underTest.receive(PENNY);
+        underTest.receive(PENNY);
+        underTest.receive(PENNY);
+        underTest.receive(NICKEL);
+        underTest.receive(NICKEL);
+        underTest.receive(NICKEL);
+        underTest.receive(DIME);
+        underTest.receive(QUARTER);
+        underTest.receive(QUARTER);
         assertThat(mSpyInvalidCoinAcceptor.availableCoins(), is(threePennies));
         assertThat(mSpyValidCoinAcceptor.availableCoins(), is(threeNickelsOneDimeAndTwoQuarters));
     }

@@ -2,6 +2,8 @@ package com.paigeruppel.katas.vendingmachine;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,11 +15,18 @@ import static org.junit.Assert.assertThat;
 
 public class CoinHolderTest {
 
+    @Spy
+    private CoinBank mSpyDepositCoinAcceptor;
+
+    @Spy
+    private CoinReturn mSpyReturnCoinAcceptor;
+
     private CoinHolder underTest;
 
     @Before
     public void setup() {
-        underTest = new CoinHolder();
+        MockitoAnnotations.initMocks(this);
+        underTest = new CoinHolder(mSpyDepositCoinAcceptor, mSpyReturnCoinAcceptor);
     }
 
     private List<Coin> buildCoinList(Coin... args) {
@@ -57,14 +66,14 @@ public class CoinHolderTest {
     }
 
     @Test
-    public void whenNickelIsSentToReturnListShouldRemoveOneNickel() {
+    public void whenCoinsInHolderAreDepositedAvailableCoinsShouldBeEmptyAndCoinsShouldGoToDepositCoinAcceptor() {
         List<Coin> threeNickels = buildCoinList(NICKEL, NICKEL, NICKEL);
-        List<Coin> twoNickels = buildCoinList(NICKEL, NICKEL);
         underTest.accept(NICKEL);
         underTest.accept(NICKEL);
         underTest.accept(NICKEL);
-        assertThat(underTest.availableCoins(), is(threeNickels));
-//        underTest.sendCoinsToReturn(NICKEL);
-        assertThat(underTest.availableCoins(), is(twoNickels));
+
+        underTest.deposit();
+        assertThat(underTest.availableCoins(), is(Collections.emptyList()));
+        assertThat(mSpyDepositCoinAcceptor.availableCoins(), is(threeNickels));
     }
 }

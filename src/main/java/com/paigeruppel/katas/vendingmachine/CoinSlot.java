@@ -17,7 +17,7 @@ public class CoinSlot {
         this.invalidCoinAcceptor = invalidCoinAcceptor;
     }
 
-    public void recieve(Coin coin) {
+    public void receive(Coin coin) {
         if (validCoins().containsKey(coin)) {
             validCoinAcceptor.accept(coin);
         } else {

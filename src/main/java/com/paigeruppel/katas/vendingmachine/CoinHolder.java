@@ -7,7 +7,12 @@ public class CoinHolder implements CoinAcceptor {
 
     private List<Coin> coinsInHolder;
 
-    public CoinHolder() {
+    private CoinAcceptor depositCoinAcceptor;
+    private CoinAcceptor returnCoinAcceptor;
+
+    public CoinHolder(CoinAcceptor depositCoinAcceptor, CoinAcceptor returnCoinAcceptor) {
+        this.depositCoinAcceptor = depositCoinAcceptor;
+        this.returnCoinAcceptor = returnCoinAcceptor;
         coinsInHolder = new ArrayList<>();
     }
 
@@ -19,10 +24,11 @@ public class CoinHolder implements CoinAcceptor {
         return coinsInHolder;
     }
 
-//    public void sendCoinsToReturn(Coin... args) {
-//        for (Coin c: args) {
-//            coinsInHolder.remove(c);
-//            returnSlot.returnCoin(c);
-//        }
-//    }
+
+    public void deposit() {
+        for (Coin c: coinsInHolder) {
+            depositCoinAcceptor.accept(c);
+        }
+        coinsInHolder.clear();
+    }
 }

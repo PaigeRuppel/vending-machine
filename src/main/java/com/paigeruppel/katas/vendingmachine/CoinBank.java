@@ -1,5 +1,6 @@
 package com.paigeruppel.katas.vendingmachine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
@@ -7,12 +8,12 @@ import static com.paigeruppel.katas.vendingmachine.Coin.*;
 public class CoinBank implements CoinAcceptor {
     private List<Coin> coinsInBank;
 
-    public CoinBank(List<Coin> coinsInBank) {
-        this.coinsInBank = coinsInBank;
+    public CoinBank() {
+        coinsInBank = new ArrayList<>();
     }
 
     public void accept(Coin coin) {
-
+        coinsInBank.add(coin);
     }
 
     public List<Coin> availableCoins() {
