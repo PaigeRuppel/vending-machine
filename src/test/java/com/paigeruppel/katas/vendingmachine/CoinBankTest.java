@@ -86,8 +86,17 @@ public class CoinBankTest {
     public void whenReturnAmountIs5CentsShouldRemoveANickelFromCoinsInBank() {
         List<Coin> twoNickels = buildCoinList(NICKEL, NICKEL);
         underTest.stock(twoNickels);
-        underTest.returnPayment(0.05);
+        underTest.returnChange(0.05);
         List<Coin> oneNickel = buildCoinList(NICKEL);
         assertThat(underTest.availableCoins(), is(oneNickel));
+    }
+
+    @Test
+    public void whenReturnAmountIs10CentsShouldRemoveADimeFromCoinsInBank() {
+        List<Coin> twoDimesAndANickel = buildCoinList(NICKEL, DIME, DIME);
+        underTest.stock(twoDimesAndANickel);
+        underTest.returnChange(0.10);
+        List<Coin> oneDimeAndOneNickel = buildCoinList(NICKEL, DIME);
+        assertThat(underTest.availableCoins(), is(oneDimeAndOneNickel));
     }
 }

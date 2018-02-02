@@ -48,7 +48,11 @@ public class CoinBank implements CoinAcceptor {
         return coinCount;
     }
 
-    public void returnPayment(double difference) {
-        availableCoins().remove(NICKEL);
+    public void returnChange(double difference) {
+        if (difference == 0.05){
+            coinsInBank.remove(NICKEL);
+        } else if (difference == 0.10) {
+            coinsInBank.remove(DIME);
+        }
     }
 }
