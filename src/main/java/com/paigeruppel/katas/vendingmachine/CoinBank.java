@@ -49,21 +49,40 @@ public class CoinBank implements CoinAcceptor {
     }
 
     public void returnChange(double difference) {
-        if (difference == 0.05){
-            coinsInBank.remove(NICKEL);
+        if (difference == 0.05) {
+            checkBankInventoryAndReturnFiveCents();
         } else if (difference == 0.10) {
             checkBankInventoryAndReturnTenCents();
+        } else if (difference == 0.15) {
+            checkBankInventoryAndReturnFiveCents();
+            checkBankInventoryAndReturnTenCents();
         } else if (difference == 0.25) {
-            coinsInBank.remove(QUARTER);
+            checkBankInventoryAndReturnTwentyFiveCents();
+        }
+    }
+
+    private void checkBankInventoryAndReturnFiveCents() {
+        if (count(NICKEL) >= 1) {
+            coinsInBank.remove(NICKEL);
         }
     }
 
     private void checkBankInventoryAndReturnTenCents() {
-        if (coinsInBank.contains(DIME)) {
+        if (count(DIME) >= 1) {
             coinsInBank.remove(DIME);
+        } else if (count(NICKEL)  >= 2) {
+            coinsInBank.remove(NICKEL);
+            coinsInBank.remove(NICKEL);
+        }
+    }
+
+    private void checkBankInventoryAndReturnTwentyFiveCents() {
+        if (count(QUARTER) >= 1) {
+            coinsInBank.remove(QUARTER);
         } else {
-            coinsInBank.remove(NICKEL);
-            coinsInBank.remove(NICKEL);
+            checkBankInventoryAndReturnTenCents();
+            checkBankInventoryAndReturnTenCents();
+            checkBankInventoryAndReturnFiveCents();
         }
     }
 }

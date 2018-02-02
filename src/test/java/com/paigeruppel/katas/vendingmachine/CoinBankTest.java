@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
@@ -110,11 +111,43 @@ public class CoinBankTest {
     }
 
     @Test
+    public void whenReturnAmountIs15CentsShouldReturnADimeAndANickel() {
+        List<Coin> oneNickelAndTwoDimes = buildCoinList(NICKEL, DIME);
+        underTest.stock(oneNickelAndTwoDimes);
+        underTest.returnChange(0.15);
+        assertThat(underTest.availableCoins(), is(Collections.emptyList()));
+    }
+
+    @Test
     public void whenReturnAmountIs25CentsShouldRemoveAQuarterFromCoinsInBank() {
         List<Coin> fourNickelsAndAQuarter = buildCoinList(NICKEL, NICKEL, NICKEL, NICKEL, QUARTER);
         underTest.stock(fourNickelsAndAQuarter);
         underTest.returnChange(0.25);
         List<Coin> fourNickels = buildCoinList(NICKEL, NICKEL, NICKEL, NICKEL);
         assertThat(underTest.availableCoins(), is(fourNickels));
+    }
+
+    @Test
+    public void whenReturnAmountIs25CentsAndNoQuarterIsInBankShouldReturnFiveNickels() {
+        List<Coin> fiveNickels = buildCoinList(NICKEL, NICKEL, NICKEL, NICKEL, NICKEL);
+        underTest.stock(fiveNickels);
+        underTest.returnChange(0.25);
+        assertThat(underTest.availableCoins(), is(Collections.emptyList()));
+    }
+
+    @Test
+    public void whenReturnAmountIs25CentsAndNoQuarterAndOnlyThreeNickelsShouldReturnThreeNickelsAndADime() {
+        List<Coin> threeNickelsAndOneDime = buildCoinList(NICKEL, NICKEL, NICKEL, DIME);
+        underTest.stock(threeNickelsAndOneDime);
+        underTest.returnChange(0.25);
+        assertThat(underTest.availableCoins(), is(Collections.emptyList()));
+    }
+
+    @Test
+    public void whenReturnAmountIs25CentsAndNoQuartersAndLessThanFiveNickelsInBankShouldReturnTwoDimesAndANickel() {
+        List<Coin> oneNickelAndTwoDimes = buildCoinList(NICKEL, DIME, DIME);
+        underTest.stock(oneNickelAndTwoDimes);
+        underTest.returnChange(0.25);
+        assertThat(underTest.availableCoins(), is(Collections.emptyList()));
     }
 }
