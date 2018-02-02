@@ -25,9 +25,16 @@ public class CoinHolder implements CoinAcceptor {
     }
 
 
-    public void deposit() {
+    public void depositCoins() {
         for (Coin c: coinsInHolder) {
             depositCoinAcceptor.accept(c);
+        }
+        coinsInHolder.clear();
+    }
+
+    public void returnCoins() {
+        for (Coin c : coinsInHolder) {
+            returnCoinAcceptor.accept(c);
         }
         coinsInHolder.clear();
     }

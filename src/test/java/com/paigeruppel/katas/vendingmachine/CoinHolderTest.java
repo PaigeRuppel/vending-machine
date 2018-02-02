@@ -72,8 +72,20 @@ public class CoinHolderTest {
         underTest.accept(NICKEL);
         underTest.accept(NICKEL);
 
-        underTest.deposit();
+        underTest.depositCoins();
         assertThat(underTest.availableCoins(), is(Collections.emptyList()));
         assertThat(mSpyDepositCoinAcceptor.availableCoins(), is(threeNickels));
+    }
+
+    @Test
+    public void whenCoinsInHolderAreReturnedAvailableCoinsShouldBeEmptyAndCoinsShouldGoToReturnCoinAcceptor() {
+        List<Coin> threeNickels = buildCoinList(NICKEL, NICKEL, NICKEL);
+        underTest.accept(NICKEL);
+        underTest.accept(NICKEL);
+        underTest.accept(NICKEL);
+
+        underTest.returnCoins();
+        assertThat(underTest.availableCoins(), is(Collections.emptyList()));
+        assertThat(mSpyReturnCoinAcceptor.availableCoins(), is(threeNickels));
     }
 }
