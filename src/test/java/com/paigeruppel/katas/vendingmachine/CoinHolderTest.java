@@ -64,7 +64,7 @@ public class CoinHolderTest {
         underTest.accept(NICKEL);
         underTest.accept(NICKEL);
         assertThat(underTest.availableCoins(), is(threeNickels));
-        underTest.sendCoinsToReturn(NICKEL);
+//        underTest.sendCoinsToReturn(NICKEL);
         assertThat(underTest.availableCoins(), is(twoNickels));
     }
 }

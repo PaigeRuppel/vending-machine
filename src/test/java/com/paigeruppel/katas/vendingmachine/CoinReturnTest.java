@@ -10,20 +10,20 @@ import static org.junit.Assert.assertThat;
 
 public class CoinReturnTest {
 
-    private CoinReturn underTest;
-
-    @Before
-    public void setup() {
-        underTest = new CoinReturn();
-    }
-
-    @Test
-    public void shouldReturnAPenny() {
-        assertThat(underTest.returnCoin(PENNY), is(PENNY));
-    }
-
-    @Test
-    public void shouldReturnANickel() {
-        assertThat(underTest.returnCoin(NICKEL), is(NICKEL));
-    }
+//    private CoinReturn underTest;
+//
+//    @Before
+//    public void setup() {
+//        underTest = new CoinReturn();
+//    }
+//
+//    @Test
+//    public void shouldReturnAPenny() {
+//        assertThat(underTest.returnCoin(PENNY), is(PENNY));
+//    }
+//
+//    @Test
+//    public void shouldReturnANickel() {
+//        assertThat(underTest.returnCoin(NICKEL), is(NICKEL));
+//    }
 }

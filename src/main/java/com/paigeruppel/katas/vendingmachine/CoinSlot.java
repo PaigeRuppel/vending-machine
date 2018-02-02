@@ -17,13 +17,11 @@ public class CoinSlot {
         this.invalidCoinAcceptor = invalidCoinAcceptor;
     }
 
-    public void validate(Coin coin) {
-        double value = validCoins().getOrDefault(coin, 0.0);
-        if (value == 0) {
+    public void recieve(Coin coin) {
+        if (validCoins().containsKey(coin)) {
             validCoinAcceptor.accept(coin);
         } else {
             invalidCoinAcceptor.accept(coin);
-            display.addValue(value);
         }
     }
 

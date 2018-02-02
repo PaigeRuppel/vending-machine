@@ -8,14 +8,11 @@ import org.mockito.Spy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.CheckedOutputStream;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.*;
 
 public class CoinSlotTest {
 
@@ -26,12 +23,12 @@ public class CoinSlotTest {
     @Spy
     private CoinReturn mSpyInvalidCoinAcceptor;
 
-    @InjectMocks
     private CoinSlot underTest;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        underTest = new CoinSlot(mSpyValidCoinAcceptor, mSpyInvalidCoinAcceptor);
     }
 
     private List<Coin> buildCoinList(Coin ... args) {
@@ -43,27 +40,34 @@ public class CoinSlotTest {
     }
 
     @Test
-    public void whenCoinSlotValidatesNickelValidCoinAcceptorShouldAcceptTheNickel() {
+    public void whenCoinSlotReceivesNickelValidCoinAcceptorShouldAcceptTheNickel() {
         List<Coin> nickelOnly = buildCoinList(NICKEL);
-        underTest.validate(NICKEL);
+        underTest.recieve(NICKEL);
         assertThat(mSpyValidCoinAcceptor.availableCoins(), is(nickelOnly));
     }
 
-
     @Test
-    public void dimeIsValid() {
-        assertTrue(underTest.isValid(DIME));
+    public void whenCoinSlotRecievesPennyInvalidCoinAcceptorShouldAcceptThePenny() {
+        List<Coin> pennyOnly = buildCoinList(PENNY);
+        underTest.recieve(PENNY);
+        assertThat(mSpyInvalidCoinAcceptor.availableCoins(), is(pennyOnly));
     }
 
     @Test
-    public void quarterIsValid() {
-        assertTrue(underTest.isValid(QUARTER));
-    }
-
-
-    @Test
-    public void pennyIsNotValid() {
-        assertFalse(underTest.isValid(PENNY));
+    public void whenCoinSlotReceivesMultipleCoinsInvalidAcceptorShouldAcceptAllPenniesAndValidAcceptorShouldAcceptAllOthers() {
+        List<Coin> threePennies = buildCoinList(PENNY, PENNY, PENNY);
+        List<Coin> threeNickelsOneDimeAndTwoQuarters = buildCoinList(NICKEL, NICKEL, NICKEL, DIME, QUARTER, QUARTER);
+        underTest.recieve(PENNY);
+        underTest.recieve(PENNY);
+        underTest.recieve(PENNY);
+        underTest.recieve(NICKEL);
+        underTest.recieve(NICKEL);
+        underTest.recieve(NICKEL);
+        underTest.recieve(DIME);
+        underTest.recieve(QUARTER);
+        underTest.recieve(QUARTER);
+        assertThat(mSpyInvalidCoinAcceptor.availableCoins(), is(threePennies));
+        assertThat(mSpyValidCoinAcceptor.availableCoins(), is(threeNickelsOneDimeAndTwoQuarters));
     }
 
 
