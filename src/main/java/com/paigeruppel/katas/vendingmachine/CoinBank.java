@@ -8,8 +8,8 @@ import static com.paigeruppel.katas.vendingmachine.Coin.*;
 import static com.paigeruppel.katas.vendingmachine.Constants.*;
 
 public class CoinBank implements CoinAcceptor {
-    private List<Coin> coinsInBank;
 
+    private List<Coin> coinsInBank;
 
     public CoinBank() {
         coinsInBank = new ArrayList<>();
