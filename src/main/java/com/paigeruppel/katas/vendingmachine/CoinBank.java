@@ -12,18 +12,18 @@ public class CoinBank implements CoinAcceptor {
         coinsInBank = new ArrayList<>();
     }
 
-    public void stock(List<Coin> coinsToStock) {
-        for (Coin c : coinsToStock) {
-            coinsInBank.add(c);
-        }
-    }
-
     public void accept(Coin coin) {
         coinsInBank.add(coin);
     }
 
     public List<Coin> availableCoins() {
         return coinsInBank;
+    }
+
+    public void stock(List<Coin> coinsToStock) {
+        for (Coin c : coinsToStock) {
+            coinsInBank.add(c);
+        }
     }
 
     public boolean requiresExactChangeOnly() {
@@ -52,7 +52,12 @@ public class CoinBank implements CoinAcceptor {
         if (difference == 0.05){
             coinsInBank.remove(NICKEL);
         } else if (difference == 0.10) {
-            coinsInBank.remove(DIME);
+            if (coinsInBank.contains(DIME)) {
+                coinsInBank.remove(DIME);
+            } else {
+                coinsInBank.remove(NICKEL);
+                coinsInBank.remove(NICKEL);
+            }
         }
     }
 }

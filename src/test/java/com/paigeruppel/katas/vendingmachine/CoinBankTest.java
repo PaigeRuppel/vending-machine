@@ -99,4 +99,13 @@ public class CoinBankTest {
         List<Coin> oneDimeAndOneNickel = buildCoinList(NICKEL, DIME);
         assertThat(underTest.availableCoins(), is(oneDimeAndOneNickel));
     }
+
+    @Test
+    public void whenReturnAmountIs10CentsAndNoDimesAreInBankShouldReturnTwoNickels() {
+        List<Coin> fourNickels = buildCoinList(NICKEL, NICKEL, NICKEL, NICKEL);
+        underTest.stock(fourNickels);
+        underTest.returnChange(0.10);
+        List<Coin> twoNickels = buildCoinList(NICKEL, NICKEL);
+        assertThat(underTest.availableCoins(), is(twoNickels));
+    }
 }
