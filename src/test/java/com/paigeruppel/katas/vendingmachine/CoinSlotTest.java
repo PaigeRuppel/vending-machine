@@ -4,8 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class CoinSlotTest {
@@ -18,24 +17,24 @@ public class CoinSlotTest {
     }
 
     @Test
-    public void shouldReturnValue5WhenNickelIsAccepted() {
+    public void nickelIsValid() {
         assertTrue(underTest.isValid(NICKEL));
     }
 
     @Test
-    public void shouldReturnValue10WhenDimeIsAccepted() {
-        assertThat(underTest.validateCoin(DIME), is(0.10));
+    public void dimeIsValid() {
+        assertTrue(underTest.isValid(DIME));
     }
 
     @Test
-    public void shouldReturnValue25WhenQuarterIsAccepted() {
-        assertThat(underTest.validateCoin(QUARTER), is(0.25));
+    public void quarterIsValid() {
+        assertTrue(underTest.isValid(QUARTER));
     }
 
 
     @Test
-    public void pennyShouldGiveZeroValue() {
-        assertThat(underTest.validateCoin(PENNY), is(0.0));
+    public void pennyIsNotValid() {
+        assertFalse(underTest.isValid(PENNY));
     }
 
 

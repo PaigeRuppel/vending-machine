@@ -31,7 +31,7 @@ public class CoinSlot {
     }
 
 
-    public boolean isValid(Coin nickel) {
-        return true;
+    public boolean isValid(Coin coin) {
+        return validCoins().containsKey(coin);
     }
 }
