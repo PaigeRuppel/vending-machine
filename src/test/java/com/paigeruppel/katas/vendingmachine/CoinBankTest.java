@@ -4,12 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
 
 public class CoinBankTest {
 
@@ -81,5 +80,14 @@ public class CoinBankTest {
         List<Coin> twoDimes = buildCoinList(DIME, DIME);
         underTest.stock(twoDimes);
         assertTrue(underTest.requiresExactChangeOnly());
+    }
+
+    @Test
+    public void whenReturnAmountIs5CentsShouldRemoveANickelFromCoinsInBank() {
+        List<Coin> twoNickels = buildCoinList(NICKEL, NICKEL);
+        underTest.stock(twoNickels);
+        underTest.returnPayment(0.05);
+        List<Coin> oneNickel = buildCoinList(NICKEL);
+        assertThat(underTest.availableCoins(), is(oneNickel));
     }
 }
