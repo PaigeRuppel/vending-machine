@@ -36,23 +36,23 @@ public class CoinHolderTest {
     @Test
     public void whenNickelIsAcceptedShouldReturnListWithNickel() {
         List<Coin> nickelOnly = buildCoinList(NICKEL);
-        underTest.acceptCoin(NICKEL);
+        underTest.accept(NICKEL);
         assertThat(underTest.heldCoins(), is(nickelOnly));
     }
 
     @Test
     public void whenDimeIsAcceptedShouldReturnListWithDime() {
        List<Coin> dimeOnly = buildCoinList(DIME);
-       underTest.acceptCoin(DIME);
+       underTest.accept(DIME);
        assertThat(underTest.heldCoins(), is(dimeOnly));
     }
 
     @Test
     public void whenNickelDimeAndQuarterAreAcceptedShouldReturnListWithOneOfEach() {
         List<Coin> nickelDimeAndQuarter = buildCoinList(NICKEL, DIME, QUARTER);
-        underTest.acceptCoin(NICKEL);
-        underTest.acceptCoin(DIME);
-        underTest.acceptCoin(QUARTER);
+        underTest.accept(NICKEL);
+        underTest.accept(DIME);
+        underTest.accept(QUARTER);
         assertThat(underTest.heldCoins(), is(nickelDimeAndQuarter));
     }
 
@@ -60,9 +60,9 @@ public class CoinHolderTest {
     public void whenNickelIsSentToReturnListShouldRemoveOneNickel() {
         List<Coin> threeNickels = buildCoinList(NICKEL, NICKEL, NICKEL);
         List<Coin> twoNickels = buildCoinList(NICKEL, NICKEL);
-        underTest.acceptCoin(NICKEL);
-        underTest.acceptCoin(NICKEL);
-        underTest.acceptCoin(NICKEL);
+        underTest.accept(NICKEL);
+        underTest.accept(NICKEL);
+        underTest.accept(NICKEL);
         assertThat(underTest.heldCoins(), is(threeNickels));
         underTest.sendCoinsToReturn(NICKEL);
         assertThat(underTest.heldCoins(), is(twoNickels));

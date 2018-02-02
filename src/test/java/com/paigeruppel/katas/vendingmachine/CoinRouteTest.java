@@ -1,6 +1,7 @@
 package com.paigeruppel.katas.vendingmachine;
 
 import org.junit.Before;
+import org.junit.Test;
 
 public class CoinRouteTest {
 
@@ -9,5 +10,10 @@ public class CoinRouteTest {
     @Before
     public void setup() {
         underTest = new CoinRoute();
+    }
+
+    @Test
+    public void shouldDeliverCoinFromCoinSlotToCoinHolder() {
+        underTest.deliverPayment();
     }
 }

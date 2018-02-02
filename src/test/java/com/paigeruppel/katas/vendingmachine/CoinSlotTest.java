@@ -11,9 +11,16 @@ public class CoinSlotTest {
 
     private CoinSlot underTest;
 
+
+    private CoinAcceptor validCoinAcceptor;
+
+    private CoinAcceptor invalidCoinAcceptor;
+
     @Before
     public void setup() {
-        underTest = new CoinSlot();
+        validCoinAcceptor = new CoinHolder();
+        invalidCoinAcceptor = new CoinReturn();
+        underTest = new CoinSlot(validCoinAcceptor, invalidCoinAcceptor);
     }
 
     @Test

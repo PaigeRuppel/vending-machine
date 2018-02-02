@@ -5,21 +5,26 @@ import java.util.Map;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
 
-public class CoinSlot {
+public class CoinSlot implements CoinAcceptor {
 
-    private CoinReturn coinReturn = new CoinReturn();
-    private CoinHolder coinHolder = new CoinHolder();
     private VendingDisplay display = new VendingDisplay();
 
-    public double validateCoin(Coin coin) {
+    private CoinAcceptor validCoinAcceptor;
+    private CoinAcceptor invalidCoinAcceptor;
+
+    public CoinSlot(CoinAcceptor validCoinAcceptor, CoinAcceptor invalidCoinAcceptor) {
+        this.validCoinAcceptor = validCoinAcceptor;
+        this.invalidCoinAcceptor = invalidCoinAcceptor;
+    }
+
+    public void accept(Coin coin) {
         double value = validCoins().getOrDefault(coin, 0.0);
         if (value == 0) {
-            coinReturn.returnCoin(coin);
+            validCoinAcceptor.accept(coin);
         } else {
-            coinHolder.acceptCoin(coin);
+            invalidCoinAcceptor.accept(coin);
             display.addValue(value);
         }
-        return value;
     }
 
     private static Map<Coin, Double> validCoins() {

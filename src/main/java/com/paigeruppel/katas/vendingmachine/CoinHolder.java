@@ -3,7 +3,7 @@ package com.paigeruppel.katas.vendingmachine;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoinHolder {
+public class CoinHolder implements CoinAcceptor {
 
     private List<Coin> coinsInHolder;
     private CoinReturn returnSlot = new CoinReturn();
@@ -12,7 +12,7 @@ public class CoinHolder {
         coinsInHolder = new ArrayList<>();
     }
 
-    public void acceptCoin(Coin coin) {
+    public void accept(Coin coin) {
         coinsInHolder.add(coin);
     }
 

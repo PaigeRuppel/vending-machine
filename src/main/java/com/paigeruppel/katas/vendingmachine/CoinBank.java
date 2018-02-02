@@ -1,17 +1,18 @@
 package com.paigeruppel.katas.vendingmachine;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
 
-public class CoinBank {
+public class CoinBank implements CoinAcceptor {
     private List<Coin> coinsInBank;
 
     public CoinBank(List<Coin> coinsInBank) {
         this.coinsInBank = coinsInBank;
+    }
+
+    public void accept(Coin coin) {
+
     }
 
     public boolean requiresExactChangeOnly() {
