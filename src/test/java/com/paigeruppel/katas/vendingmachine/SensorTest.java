@@ -9,6 +9,8 @@ import static com.paigeruppel.katas.vendingmachine.Coin.DIME;
 import static com.paigeruppel.katas.vendingmachine.Coin.NICKEL;
 import static com.paigeruppel.katas.vendingmachine.Coin.QUARTER;
 import static com.paigeruppel.katas.vendingmachine.Constants.FIVE_CENTS;
+import static com.paigeruppel.katas.vendingmachine.Constants.TEN_CENTS;
+import static com.paigeruppel.katas.vendingmachine.Constants.TWENTY_FIVE_CENTS;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -49,6 +51,17 @@ public class SensorTest {
     @Test
     public void shouldCorrectlyRetrieveValueFromPropertyListForNickel() {
         assertThat(underTest.detectValueOf(NICKEL), is(FIVE_CENTS));
-}
+    }
+
+    @Test
+    public void shouldCorrectlyRetrieveValueFromPropertyListForDime() {
+        assertThat(underTest.detectValueOf(DIME), is(TEN_CENTS));
+    }
+
+    @Test
+    public void shouldCorrectlyRetrieveValueFromPropertyListForQuarter() {
+        assertThat(underTest.detectValueOf(QUARTER), is(TWENTY_FIVE_CENTS));
+    }
+
 
 }
