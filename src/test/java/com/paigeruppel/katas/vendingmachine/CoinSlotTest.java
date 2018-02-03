@@ -24,6 +24,9 @@ public class CoinSlotTest {
     @Spy
     private CoinReturn mSpyInvalidCoinAcceptor;
 
+    @Spy
+    private Sensor mSpySensor;
+
     private CoinSlot underTest;
 
     @Before
@@ -41,7 +44,7 @@ public class CoinSlotTest {
     }
 
     @Test
-    public void whenCoinSlotReceivesNickelValidCoinAcceptorShouldAcceptTheNickel() {
+    public void whenCoinSlotReceivesNickelValidCoinAcceptorShouldAcceptTheNickelAndSensorShouldDetectFiveCents() {
         List<Coin> nickelOnly = buildCoinList(NICKEL);
         underTest.receive(NICKEL);
         assertThat(mSpyValidCoinAcceptor.availableCoins(), is(nickelOnly));

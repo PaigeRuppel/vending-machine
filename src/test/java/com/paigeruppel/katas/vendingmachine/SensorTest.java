@@ -5,9 +5,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static com.paigeruppel.katas.vendingmachine.Coin.DIME;
-import static com.paigeruppel.katas.vendingmachine.Coin.NICKEL;
-import static com.paigeruppel.katas.vendingmachine.Coin.QUARTER;
+import static com.paigeruppel.katas.vendingmachine.Coin.*;
 import static com.paigeruppel.katas.vendingmachine.Constants.FIVE_CENTS;
 import static com.paigeruppel.katas.vendingmachine.Constants.TEN_CENTS;
 import static com.paigeruppel.katas.vendingmachine.Constants.TWENTY_FIVE_CENTS;
@@ -25,42 +23,23 @@ public class SensorTest {
     }
 
     @Test
-    public void sensorShouldCorrectlyWeighNickel() {
-        BigDecimal nickelWeight = BigDecimal.valueOf(5.0);
-        assertThat(underTest.weigh(NICKEL), is(nickelWeight));
-    }
-
-    @Test
-    public void sensorShouldCorrectlyMeasureVolumeOfNickel() {
-        BigDecimal volume = BigDecimal.valueOf(64.9674);
-        assertThat(underTest.measureVolume(NICKEL), is(volume));
-    }
-
-    @Test
-    public void sensorShouldCorrectlyMeasureVolumeOfDime() {
-        BigDecimal volume = BigDecimal.valueOf(37.9795);
-        assertThat(underTest.measureVolume(DIME), is(volume));
-    }
-
-    @Test
-    public void sensorShouldCorrectlyMeasureVolumeOfQuarter() {
-        BigDecimal volume = BigDecimal.valueOf(66.6882);
-        assertThat(underTest.measureVolume(QUARTER), is(volume));
-    }
-
-    @Test
-    public void shouldCorrectlyRetrieveValueFromPropertyListForNickel() {
+    public void shouldCorrectlyDetectValueOfNickel() {
         assertThat(underTest.detectValueOf(NICKEL), is(FIVE_CENTS));
     }
 
     @Test
-    public void shouldCorrectlyRetrieveValueFromPropertyListForDime() {
+    public void shouldCorrectlyDetectValueOfDime() {
         assertThat(underTest.detectValueOf(DIME), is(TEN_CENTS));
     }
 
     @Test
-    public void shouldCorrectlyRetrieveValueFromPropertyListForQuarter() {
+    public void shouldCorrectlyDetectValueOfQuarter() {
         assertThat(underTest.detectValueOf(QUARTER), is(TWENTY_FIVE_CENTS));
+    }
+
+    @Test
+    public void shouldReturnZeroValueForPenny() {
+        assertThat(underTest.detectValueOf(PENNY), is(BigDecimal.ZERO));
     }
 
 
