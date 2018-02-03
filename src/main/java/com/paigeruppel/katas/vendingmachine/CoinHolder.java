@@ -16,6 +16,10 @@ public class CoinHolder implements CoinAcceptor {
         coinsInHolder = new ArrayList<>();
     }
 
+    public CoinHolder() {
+        coinsInHolder = new ArrayList<>();
+    }
+
     public void accept(Coin coin) {
         coinsInHolder.add(coin);
     }
