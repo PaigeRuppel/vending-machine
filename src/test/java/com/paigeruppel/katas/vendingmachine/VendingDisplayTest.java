@@ -72,4 +72,11 @@ public class VendingDisplayTest {
         assertTrue(underTest.canPurchaseCandy());
     }
 
+    @Test
+    public void whenCurrentBalanceIsOneDollarShouldBeAbleToPurchaseCola() {
+        when(coinHolder.getAmountInHolder()).thenReturn(ONE_DOLLAR);
+        when(coinBank.requiresExactChangeOnly()).thenReturn(false);
+        assertTrue(underTest.canPurchaseCola());
+    }
+
 }

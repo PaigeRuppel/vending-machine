@@ -1,14 +1,9 @@
 package com.paigeruppel.katas.vendingmachine;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.MathContext;
 import java.text.NumberFormat;
-import java.util.Observable;
-import java.util.Observer;
 
 import static com.paigeruppel.katas.vendingmachine.Constants.CENTS;
-import static com.paigeruppel.katas.vendingmachine.Constants.FIVE_CENTS;
 import static java.math.BigDecimal.ZERO;
 
 public class VendingDisplay {
@@ -54,5 +49,12 @@ public class VendingDisplay {
     public boolean canPurchaseCandy() {
         currentBalance = coinHolder.getAmountInHolder();
         return currentBalance.compareTo(candy.getPrice()) >= 0;
+    }
+
+    private Product cola = new Cola();
+
+    public boolean canPurchaseCola() {
+        currentBalance = coinHolder.getAmountInHolder();
+        return currentBalance.compareTo(cola.getPrice()) >= 0;
     }
 }
