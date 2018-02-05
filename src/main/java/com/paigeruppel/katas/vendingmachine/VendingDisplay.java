@@ -39,9 +39,20 @@ public class VendingDisplay {
     }
 
     private String currencyFormat(BigDecimal balance) {
-        return NumberFormat.getCurrencyInstance().format(balance);
+        return "CURRENT BALANCE: " + NumberFormat.getCurrencyInstance().format(balance);
     }
 
+    private Product chips = new Chips();
 
+    public boolean canPurchaseChips() {
+        currentBalance = coinHolder.getAmountInHolder();
+        return currentBalance.compareTo(chips.getPrice()) >= 0;
+    }
 
+    private Product candy = new Chips();
+
+    public boolean canPurchaseCandy() {
+        currentBalance = coinHolder.getAmountInHolder();
+        return currentBalance.compareTo(candy.getPrice()) >= 0;
+    }
 }
