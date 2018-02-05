@@ -24,8 +24,6 @@ public class CoinSlotTest {
     @Spy
     private CoinReturn mSpyInvalidCoinAcceptor;
 
-    @Spy
-    private Sensor mSpySensor;
 
     private CoinSlot underTest;
 

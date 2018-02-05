@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
+import static com.paigeruppel.katas.vendingmachine.Constants.FORTY_CENTS;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -57,12 +58,13 @@ public class CoinHolderTest {
     }
 
     @Test
-    public void whenNickelDimeAndQuarterAreAcceptedShouldReturnListWithOneOfEach() {
+    public void whenNickelDimeAndQuarterAreAcceptedShouldReturnListWithOneOfEachAndFortyCentsAvailable() {
         List<Coin> nickelDimeAndQuarter = buildCoinList(NICKEL, DIME, QUARTER);
         underTest.accept(NICKEL);
         underTest.accept(DIME);
         underTest.accept(QUARTER);
         assertThat(underTest.availableCoins(), is(nickelDimeAndQuarter));
+        assertThat(underTest.getAmountInHolder(), is(FORTY_CENTS));
     }
 
     @Test

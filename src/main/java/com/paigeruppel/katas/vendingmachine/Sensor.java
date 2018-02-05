@@ -18,8 +18,9 @@ public class Sensor {
     private MathContext sensorPrecision = new MathContext(6);
 
     public BigDecimal detectValueOf(Coin coin) {
-        List<BigDecimal> propertyList = buildPropertyList(coin);
-        return coinPropertiesToValueMap().getOrDefault(propertyList, BigDecimal.ZERO);
+        List<BigDecimal> propertiesOfCoin = buildPropertyList(coin);
+        BigDecimal value = coinPropertiesToValueMap().getOrDefault(propertiesOfCoin, BigDecimal.ZERO);
+        return value;
     }
 
     private List<BigDecimal> buildPropertyList(Coin coin) {
