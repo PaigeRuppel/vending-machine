@@ -20,12 +20,12 @@ public class ColaRack implements ProductRack {
 
     @Override
     public boolean isSoldOut() {
-        return true;
+        return inventory.isEmpty();
     }
 
     @Override
     public void dispense() {
-
+        inventory.remove(0);
     }
 
     public Integer availableNumberProducts() {
