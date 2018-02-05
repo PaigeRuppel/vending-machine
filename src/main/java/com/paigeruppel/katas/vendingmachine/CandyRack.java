@@ -6,14 +6,14 @@ import java.util.List;
 public class CandyRack {
 
     private List<Product> inventory;
+    private final Integer MAX_CAPACITY = 20;
 
     public CandyRack() {
         inventory = new ArrayList<>();
     }
 
     public void stock() {
-        int count = 20;
-        for (int i = 0; i < count; i++) {
+        for (int i = inventory.size(); i < MAX_CAPACITY; i++) {
             inventory.add(new Candy());
         }
     }
