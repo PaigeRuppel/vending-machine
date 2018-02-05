@@ -5,12 +5,15 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
+import static com.paigeruppel.katas.vendingmachine.Constants.CENTS;
 import static com.paigeruppel.katas.vendingmachine.Constants.FORTY_CENTS;
+import static com.paigeruppel.katas.vendingmachine.Constants.SIXTY_FIVE_CENTS;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -89,5 +92,20 @@ public class CoinHolderTest {
         underTest.returnCoins();
         assertThat(underTest.availableCoins(), is(Collections.emptyList()));
         assertThat(mSpyReturnCoinAcceptor.availableCoins(), is(threeNickels));
+    }
+
+    @Test
+    public void whenCoinHolderAcceptsOneNickelOneDimeAndTwoQuartersAmountInHolderShouldBeSixtyFiveCents() {
+        underTest.accept(NICKEL);
+        underTest.accept(DIME);
+        underTest.accept(QUARTER);
+        underTest.accept(QUARTER);
+        assertThat(underTest.getAmountInHolder(), is(new BigDecimal(0.65, CENTS)));
+    }
+
+    @Test
+    public void whenCoinHolderAcceptsOneNickelAmountInHolderShouldBeFiveCents() {
+        underTest.accept(NICKEL);
+        assertThat(underTest.getAmountInHolder(), is(new BigDecimal(0.05, CENTS)));
     }
 }

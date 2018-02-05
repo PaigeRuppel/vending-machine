@@ -22,4 +22,8 @@ public class CoinReturn implements CoinAcceptor {
         return coinsInReturn;
     }
 
+    public void empty() {
+        coinsInReturn.clear();
+    }
+
 }

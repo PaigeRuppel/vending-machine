@@ -7,8 +7,6 @@ import static com.paigeruppel.katas.vendingmachine.Coin.*;
 
 public class CoinSlot {
 
-    private VendingDisplay display = new VendingDisplay();
-
     private CoinAcceptor validCoinAcceptor;
     private CoinAcceptor invalidCoinAcceptor;
 

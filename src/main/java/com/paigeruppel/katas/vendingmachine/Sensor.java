@@ -1,8 +1,5 @@
 package com.paigeruppel.katas.vendingmachine;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
@@ -45,11 +42,11 @@ public class Sensor {
     }
 
     private Map<List<BigDecimal>, BigDecimal> coinPropertiesToValueMap() {
-        Map<List<BigDecimal>, BigDecimal> volumeToValue = new HashMap<>();
-        volumeToValue.put(buildPropertyList(NICKEL), FIVE_CENTS);
-        volumeToValue.put(buildPropertyList(DIME), TEN_CENTS);
-        volumeToValue.put(buildPropertyList(QUARTER), TWENTY_FIVE_CENTS);
-        return volumeToValue;
+        Map<List<BigDecimal>, BigDecimal> propertiesToValue = new HashMap<>();
+        propertiesToValue.put(buildPropertyList(NICKEL), FIVE_CENTS);
+        propertiesToValue.put(buildPropertyList(DIME), TEN_CENTS);
+        propertiesToValue.put(buildPropertyList(QUARTER), TWENTY_FIVE_CENTS);
+        return propertiesToValue;
     }
 
 }

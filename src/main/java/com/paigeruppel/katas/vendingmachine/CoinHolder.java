@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.paigeruppel.katas.vendingmachine.Constants.CENTS;
-import static com.paigeruppel.katas.vendingmachine.Constants.FORTY_CENTS;
-import static java.math.BigDecimal.ZERO;
 
 public class CoinHolder implements CoinAcceptor {
 
@@ -27,6 +25,7 @@ public class CoinHolder implements CoinAcceptor {
 
     public CoinHolder() {
         sensor = new Sensor();
+        amountInHolder = new BigDecimal(0.0, CENTS);
         coinsInHolder = new ArrayList<>();
     }
 
@@ -41,10 +40,10 @@ public class CoinHolder implements CoinAcceptor {
 
 
     public void depositCoins() {
-        for (Coin c: coinsInHolder) {
+        for (Coin c : coinsInHolder) {
             depositCoinAcceptor.accept(c);
         }
-        amountInHolder = ZERO;
+        amountInHolder = new BigDecimal(0.0, CENTS);
         coinsInHolder.clear();
     }
 
@@ -52,11 +51,11 @@ public class CoinHolder implements CoinAcceptor {
         for (Coin c : coinsInHolder) {
             returnCoinAcceptor.accept(c);
         }
-        amountInHolder = ZERO;
+        amountInHolder = new BigDecimal(0.0, CENTS);
         coinsInHolder.clear();
     }
 
     public BigDecimal getAmountInHolder() {
-        return FORTY_CENTS;
+        return amountInHolder;
     }
 }

@@ -1,25 +1,47 @@
 package com.paigeruppel.katas.vendingmachine;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+import java.text.NumberFormat;
 import java.util.Observable;
 import java.util.Observer;
 
+import static com.paigeruppel.katas.vendingmachine.Constants.CENTS;
+import static com.paigeruppel.katas.vendingmachine.Constants.FIVE_CENTS;
+import static java.math.BigDecimal.ZERO;
+
 public class VendingDisplay {
 
-    private double insertedValue;
-    private Observer sensorObserver;
     private final String NO_VALUE_MESSAGE = "INSERT COIN";
     private final String EXACT_CHANGE_ONLY = "EXACT CHANGE ONLY";
+    private BigDecimal currentBalance;
+    private CoinHolder coinHolder;
+    private CoinBank coinBank;
+
+
+    public VendingDisplay() {
+        this.coinHolder = new CoinHolder();
+        this.coinBank = new CoinBank();
+        currentBalance = new BigDecimal(0.0, CENTS);
+    }
 
     public String displayMessage() {
-        return (insertedValue == 0) ? NO_VALUE_MESSAGE : displayInsertedValue();
+        currentBalance = coinHolder.getAmountInHolder();
+        if (hasCurrentBalance()) {
+            return currencyFormat(currentBalance);
+        }
+        return (coinBank.requiresExactChangeOnly()) ? EXACT_CHANGE_ONLY : NO_VALUE_MESSAGE;
     }
 
-    public void addValue(double value) {
-        insertedValue += value;
+    private boolean hasCurrentBalance() {
+        return currentBalance.compareTo(ZERO) > 0;
     }
 
-    private String displayInsertedValue() {
-        return "Amount deposited: " + insertedValue;
+    private String currencyFormat(BigDecimal balance) {
+        return NumberFormat.getCurrencyInstance().format(balance);
     }
+
+
 
 }
