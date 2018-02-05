@@ -31,5 +31,22 @@ public class ChipsRackTest {
         assertTrue(underTest.isSoldOut());
     }
 
+    @Test
+    public void dispensingOneProductShouldRemoveOneFromInventory() {
+        underTest = new ChipsRack();
+        underTest.stock();
+        underTest.dispense();
+        assertThat(underTest.availableNumberProducts(), is(19));
+    }
+
+    @Test
+    public void dispensingTwoProductsShouldRemoveTwoFromInventory() {
+        underTest = new ChipsRack();
+        underTest.stock();
+        underTest.dispense();
+        underTest.dispense();
+        assertThat(underTest.availableNumberProducts(), is(18));
+    }
+
 
 }
