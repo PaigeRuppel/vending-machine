@@ -1,5 +1,8 @@
 package com.paigeruppel.katas.vendingmachine;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
@@ -22,7 +25,8 @@ public class Sensor {
     private List<BigDecimal> buildPropertyList(Coin coin) {
         List<BigDecimal> parameterList = new ArrayList<>();
         parameterList.add(weigh(coin));
-        parameterList.add(measureVolume(coin));
+        parameterList.add(measureDiameter(coin));
+        parameterList.add(measureThickness(coin));
         return parameterList;
     }
 
@@ -30,21 +34,13 @@ public class Sensor {
         BigDecimal adjustedWeight = new BigDecimal(coin.getWeightInGrams(), sensorPrecision);
         return BigDecimal.valueOf(coin.getWeightInGrams());
     }
-
-    private BigDecimal measureVolume(Coin coin) {
-        Double pi = Math.PI;
-        Double radius = measureDiameter(coin) / 2;
-        Double height = measureThickness(coin);
-        Double rawVolume = pi * radius * height;
-        BigDecimal adjustedVolume = new BigDecimal(rawVolume, sensorPrecision);
-        return adjustedVolume;
+    private BigDecimal measureDiameter(Coin coin) {
+        BigDecimal adjustedDiameter = new BigDecimal(coin.getDiameterInMm(), sensorPrecision);
+        return adjustedDiameter;
     }
-
-    private Double measureDiameter(Coin coin) {
-        return coin.getDiameterInMm();
-    }
-    private Double measureThickness(Coin coin) {
-        return coin.getThicknessInMm();
+    private BigDecimal measureThickness(Coin coin) {
+        BigDecimal adjustedThickness = new BigDecimal(coin.getThicknessInMm(), sensorPrecision);
+        return adjustedThickness;
     }
 
     private Map<List<BigDecimal>, BigDecimal> coinPropertiesToValueMap() {
@@ -54,4 +50,5 @@ public class Sensor {
         volumeToValue.put(buildPropertyList(QUARTER), TWENTY_FIVE_CENTS);
         return volumeToValue;
     }
+
 }
