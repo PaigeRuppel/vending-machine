@@ -67,7 +67,7 @@ public class CoinHolderTest {
         underTest.accept(DIME);
         underTest.accept(QUARTER);
         assertThat(underTest.availableCoins(), is(nickelDimeAndQuarter));
-        assertThat(underTest.getAmountInHolder(), is(FORTY_CENTS));
+        assertThat(underTest.getAmountInHolder(), is(new BigDecimal(0.40).setScale(2, BigDecimal.ROUND_HALF_UP)));
     }
 
     @Test
@@ -100,12 +100,12 @@ public class CoinHolderTest {
         underTest.accept(DIME);
         underTest.accept(QUARTER);
         underTest.accept(QUARTER);
-        assertThat(underTest.getAmountInHolder(), is(new BigDecimal(0.65, CENTS)));
+        assertThat(underTest.getAmountInHolder(), is(new BigDecimal(0.65).setScale(2, BigDecimal.ROUND_HALF_UP)));
     }
 
     @Test
     public void whenCoinHolderAcceptsOneNickelAmountInHolderShouldBeFiveCents() {
         underTest.accept(NICKEL);
-        assertThat(underTest.getAmountInHolder(), is(new BigDecimal(0.05, CENTS)));
+        assertThat(underTest.getAmountInHolder(), is(new BigDecimal(0.05).setScale(2, BigDecimal.ROUND_HALF_UP)));
     }
 }

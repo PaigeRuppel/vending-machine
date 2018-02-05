@@ -56,6 +56,6 @@ public class CoinHolder implements CoinAcceptor {
     }
 
     public BigDecimal getAmountInHolder() {
-        return amountInHolder;
+        return amountInHolder.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 }
