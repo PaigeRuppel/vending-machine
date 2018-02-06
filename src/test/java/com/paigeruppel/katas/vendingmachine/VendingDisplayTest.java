@@ -27,9 +27,16 @@ public class VendingDisplayTest {
     @InjectMocks
     private VendingDisplay underTest;
 
+    private Product chips;
+    private Product candy;
+    private Product cola;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        chips = new Chips();
+        candy = new Candy();
+        cola = new Cola();
     }
 
     @Test
@@ -63,25 +70,36 @@ public class VendingDisplayTest {
     public void whenCurrentBalanceIsFiftyCentsShouldBeAbleToPurchaseChipsButNotCandyOrCola() {
         when(coinHolder.getAmountInHolder()).thenReturn(FIFTY_CENTS);
         when(coinBank.requiresExactChangeOnly()).thenReturn(false);
-        assertTrue(underTest.canPurchaseChips());
-        assertFalse(underTest.canPurchaseCandy());
-        assertFalse(underTest.canPurchaseCola());
+        assertTrue(underTest.canPurchaseProduct(chips));
+        assertFalse(underTest.canPurchaseProduct(candy));
+        assertFalse(underTest.canPurchaseProduct(cola));
     }
 
     @Test
     public void whenCurrentBalanceIsSixtyFiveCentsShouldBeAbleToPurchaseChipsOrCandyButNotCola() {
         when(coinHolder.getAmountInHolder()).thenReturn(SIXTY_FIVE_CENTS);
         when(coinBank.requiresExactChangeOnly()).thenReturn(false);
-        assertTrue(underTest.canPurchaseChips());
-        assertTrue(underTest.canPurchaseCandy());
-        assertFalse(underTest.canPurchaseCola());
+        assertTrue(underTest.canPurchaseProduct(chips));
+        assertTrue(underTest.canPurchaseProduct(candy));
+        assertFalse(underTest.canPurchaseProduct(cola));
     }
 
     @Test
     public void whenCurrentBalanceIsOneDollarShouldBeAbleToPurchaseChipsCandyOrCola() {
         when(coinHolder.getAmountInHolder()).thenReturn(ONE_DOLLAR);
         when(coinBank.requiresExactChangeOnly()).thenReturn(false);
-        assertTrue(underTest.canPurchaseCola());
+        assertTrue(underTest.canPurchaseProduct(chips));
+        assertTrue(underTest.canPurchaseProduct(candy));
+        assertTrue(underTest.canPurchaseProduct(cola));
+    }
+
+    @Test
+    public void whenCurrentBalanceIsFiftyCentsAndChipsArePurchasedShouldSendMoneyToBank() {
+        when(coinHolder.getAmountInHolder()).thenReturn(FIFTY_CENTS);
+        when(coinBank.requiresExactChangeOnly()).thenReturn(false);
+        Chips chips = new Chips();
+        underTest.selectProduct(chips);
+        assertThat(underTest.getCurrentBalance(), is(new BigDecimal(ZERO)));
     }
 
 }

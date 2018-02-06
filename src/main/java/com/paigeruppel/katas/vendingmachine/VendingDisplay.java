@@ -37,24 +37,22 @@ public class VendingDisplay {
         return "CURRENT BALANCE: " + NumberFormat.getCurrencyInstance().format(balance);
     }
 
-    private Product chips = new Chips();
 
-    public boolean canPurchaseChips() {
+    public boolean canPurchaseProduct(Product product) {
         currentBalance = coinHolder.getAmountInHolder();
-        return currentBalance.compareTo(chips.getPrice()) >= 0;
+        return currentBalance.compareTo(product.getPrice()) >= 0;
     }
 
-    private Product candy = new Candy();
-
-    public boolean canPurchaseCandy() {
-        currentBalance = coinHolder.getAmountInHolder();
-        return currentBalance.compareTo(candy.getPrice()) >= 0;
+    public void selectProduct(Product product) {
+        if (canPurchaseProduct(product)) {
+            for (Coin c : coinHolder.availableCoins()) {
+                coinBank.accept(c);
+            }
+            currentBalance = BigDecimal.ZERO;
+        }
     }
 
-    private Product cola = new Cola();
-
-    public boolean canPurchaseCola() {
-        currentBalance = coinHolder.getAmountInHolder();
-        return currentBalance.compareTo(cola.getPrice()) >= 0;
+    public BigDecimal getCurrentBalance() {
+        return currentBalance;
     }
 }
