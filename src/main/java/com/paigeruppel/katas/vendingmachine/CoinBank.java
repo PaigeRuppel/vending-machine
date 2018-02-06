@@ -6,13 +6,16 @@ import java.util.List;
 
 import static com.paigeruppel.katas.vendingmachine.Coin.*;
 import static com.paigeruppel.katas.vendingmachine.Constants.*;
+import static java.math.BigInteger.ZERO;
 
 public class CoinBank implements CoinAcceptor {
 
     private List<Coin> coinsInBank;
+    private BigDecimal amountToReturn;
 
     public CoinBank() {
         coinsInBank = new ArrayList<>();
+        amountToReturn = new BigDecimal(ZERO);
     }
 
     public void accept(Coin coin) {
@@ -52,19 +55,27 @@ public class CoinBank implements CoinAcceptor {
     }
 
     public void returnChange(BigDecimal difference) {
-        BigDecimal amountToReturn = difference;
+        amountToReturn = difference;
         while (amountToReturn.compareTo(BigDecimal.ZERO) == 1) {
-            if (amountToReturn.compareTo(TWENTY_FIVE_CENTS) >= 0) {
+            if (amountToReturnIsAtLeast(TWENTY_FIVE_CENTS)) {
                 checkBankInventoryAndReturnTwentyFiveCents();
-                amountToReturn = amountToReturn.subtract(TWENTY_FIVE_CENTS, CENTS);
-            } else if (amountToReturn.compareTo(TEN_CENTS) >= 0) {
+                decreaseAmountToReturnBy(TWENTY_FIVE_CENTS);
+            } else if (amountToReturnIsAtLeast(TEN_CENTS)) {
                 checkBankInventoryAndReturnTenCents();
-                amountToReturn = amountToReturn.subtract(TEN_CENTS, CENTS);
-            } else if (amountToReturn.compareTo(FIVE_CENTS) >= 0) {
+                decreaseAmountToReturnBy(TEN_CENTS);
+            } else if (amountToReturnIsAtLeast(FIVE_CENTS)) {
                 checkBankInventoryAndReturnFiveCents();
-                amountToReturn = amountToReturn.subtract(FIVE_CENTS, CENTS);
+                decreaseAmountToReturnBy(FIVE_CENTS);
             }
         }
+    }
+
+    private boolean amountToReturnIsAtLeast(BigDecimal centAmount) {
+        return amountToReturn.compareTo(centAmount) >= 0;
+    }
+
+    private void decreaseAmountToReturnBy(BigDecimal amountReturned) {
+        amountToReturn = amountToReturn.subtract(amountReturned, CENTS);
     }
 
     private void checkBankInventoryAndReturnFiveCents() {
