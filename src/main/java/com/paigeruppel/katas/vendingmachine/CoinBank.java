@@ -87,9 +87,9 @@ public class CoinBank implements CoinAcceptor {
     private void checkBankInventoryAndReturnTenCents() {
         if (count(DIME) >= 1) {
             coinsInBank.remove(DIME);
-        } else if (count(NICKEL) >= 2) {
-            coinsInBank.remove(NICKEL);
-            coinsInBank.remove(NICKEL);
+        } else {
+            checkBankInventoryAndReturnFiveCents();
+            checkBankInventoryAndReturnFiveCents();
         }
     }
 

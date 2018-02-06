@@ -44,7 +44,7 @@ public class VendingDisplay {
         return currentBalance.compareTo(chips.getPrice()) >= 0;
     }
 
-    private Product candy = new Chips();
+    private Product candy = new Candy();
 
     public boolean canPurchaseCandy() {
         currentBalance = coinHolder.getAmountInHolder();

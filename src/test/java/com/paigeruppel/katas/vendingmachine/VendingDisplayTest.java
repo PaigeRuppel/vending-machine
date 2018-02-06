@@ -12,6 +12,7 @@ import static com.paigeruppel.katas.vendingmachine.Coin.NICKEL;
 import static com.paigeruppel.katas.vendingmachine.Constants.*;
 import static java.math.BigInteger.ZERO;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -59,21 +60,25 @@ public class VendingDisplayTest {
     }
 
     @Test
-    public void whenCurrentBalanceIsFiftyCentsShouldBeAbleToPurchaseChips() {
+    public void whenCurrentBalanceIsFiftyCentsShouldBeAbleToPurchaseChipsButNotCandyOrCola() {
         when(coinHolder.getAmountInHolder()).thenReturn(FIFTY_CENTS);
         when(coinBank.requiresExactChangeOnly()).thenReturn(false);
         assertTrue(underTest.canPurchaseChips());
+        assertFalse(underTest.canPurchaseCandy());
+        assertFalse(underTest.canPurchaseCola());
     }
 
     @Test
-    public void whenCurrentBalanceIsSixtyFiveCentsShouldBeAbleToPurchaseCandy() {
+    public void whenCurrentBalanceIsSixtyFiveCentsShouldBeAbleToPurchaseChipsOrCandyButNotCola() {
         when(coinHolder.getAmountInHolder()).thenReturn(SIXTY_FIVE_CENTS);
         when(coinBank.requiresExactChangeOnly()).thenReturn(false);
+        assertTrue(underTest.canPurchaseChips());
         assertTrue(underTest.canPurchaseCandy());
+        assertFalse(underTest.canPurchaseCola());
     }
 
     @Test
-    public void whenCurrentBalanceIsOneDollarShouldBeAbleToPurchaseCola() {
+    public void whenCurrentBalanceIsOneDollarShouldBeAbleToPurchaseChipsCandyOrCola() {
         when(coinHolder.getAmountInHolder()).thenReturn(ONE_DOLLAR);
         when(coinBank.requiresExactChangeOnly()).thenReturn(false);
         assertTrue(underTest.canPurchaseCola());
