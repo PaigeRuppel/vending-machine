@@ -1,5 +1,6 @@
 package com.paigeruppel.katas.vendingmachine;
 
+import com.sun.xml.internal.fastinfoset.util.QualifiedNameArray;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -93,7 +94,7 @@ public class CoinBankTest {
     }
 
     @Test
-    public void whenReturnAmountIs5CentsShouldRemoveANickelFromCoinsInBankAndCoinReturnShouldHoldANickel() {
+    public void whenReturnAmountIs5CentsShouldReturnANickel() {
         List<Coin> twoNickels = buildCoinList(NICKEL, NICKEL);
         underTest.stock(twoNickels);
         underTest.returnChange(BigDecimal.valueOf(0.05));
@@ -103,12 +104,13 @@ public class CoinBankTest {
     }
 
     @Test
-    public void whenReturnAmountIs10CentsShouldRemoveADimeFromCoinsInBank() {
+    public void whenReturnAmountIs10CentsShouldReturnADime() {
         List<Coin> twoDimesAndANickel = buildCoinList(NICKEL, DIME, DIME);
         underTest.stock(twoDimesAndANickel);
         underTest.returnChange(BigDecimal.valueOf(0.10));
         List<Coin> oneDimeAndOneNickel = buildCoinList(NICKEL, DIME);
         assertThat(underTest.availableCoins(), is(oneDimeAndOneNickel));
+        assertThat(mSpyCoinReturn.availableCoins(), is(buildCoinList(DIME)));
     }
 
     @Test
@@ -118,14 +120,16 @@ public class CoinBankTest {
         underTest.returnChange(BigDecimal.valueOf(0.10));
         List<Coin> twoNickels = buildCoinList(NICKEL, NICKEL);
         assertThat(underTest.availableCoins(), is(twoNickels));
+        assertThat(mSpyCoinReturn.availableCoins(), is(twoNickels));
     }
 
     @Test
     public void whenReturnAmountIs15CentsShouldReturnADimeAndANickel() {
-        List<Coin> oneNickelAndOneDime = buildCoinList(NICKEL, DIME);
-        underTest.stock(oneNickelAndOneDime);
+        List<Coin> oneDimeAndOneNickel = buildCoinList(DIME, NICKEL);
+        underTest.stock(oneDimeAndOneNickel);
         underTest.returnChange(BigDecimal.valueOf(0.15));
         assertThat(underTest.availableCoins(), is(Collections.emptyList()));
+        assertThat(mSpyCoinReturn.availableCoins(), is(oneDimeAndOneNickel));
     }
 
     @Test
@@ -134,6 +138,7 @@ public class CoinBankTest {
         underTest.stock(threeNickels);
         underTest.returnChange(BigDecimal.valueOf(0.15));
         assertThat(underTest.availableCoins(), is(Collections.emptyList()));
+        assertThat(mSpyCoinReturn.availableCoins(), is(threeNickels));
     }
 
     @Test
@@ -143,6 +148,7 @@ public class CoinBankTest {
         underTest.returnChange(BigDecimal.valueOf(0.25));
         List<Coin> fourNickels = buildCoinList(NICKEL, NICKEL, NICKEL, NICKEL);
         assertThat(underTest.availableCoins(), is(fourNickels));
+        assertThat(mSpyCoinReturn.availableCoins(), is(buildCoinList(QUARTER)));
     }
 
     @Test
@@ -151,22 +157,25 @@ public class CoinBankTest {
         underTest.stock(fiveNickels);
         underTest.returnChange(BigDecimal.valueOf(0.25));
         assertThat(underTest.availableCoins(), is(Collections.emptyList()));
+        assertThat(mSpyCoinReturn.availableCoins(), is(fiveNickels));
     }
 
     @Test
     public void whenReturnAmountIs25CentsAndNoQuarterAndOnlyThreeNickelsShouldReturnThreeNickelsAndADime() {
-        List<Coin> threeNickelsAndOneDime = buildCoinList(NICKEL, NICKEL, NICKEL, DIME);
+        List<Coin> threeNickelsAndOneDime = buildCoinList(DIME, NICKEL, NICKEL, NICKEL);
         underTest.stock(threeNickelsAndOneDime);
         underTest.returnChange(BigDecimal.valueOf(0.25));
         assertThat(underTest.availableCoins(), is(Collections.emptyList()));
+        assertThat(mSpyCoinReturn.availableCoins(), is(threeNickelsAndOneDime));
     }
 
     @Test
     public void whenReturnAmountIs25CentsAndNoQuartersAndLessThanFiveNickelsInBankShouldReturnTwoDimesAndANickel() {
-        List<Coin> oneNickelAndTwoDimes = buildCoinList(NICKEL, DIME, DIME);
+        List<Coin> oneNickelAndTwoDimes = buildCoinList(DIME, DIME, NICKEL);
         underTest.stock(oneNickelAndTwoDimes);
         underTest.returnChange(BigDecimal.valueOf(0.25));
         assertThat(underTest.availableCoins(), is(Collections.emptyList()));
+        assertThat(mSpyCoinReturn.availableCoins(), is(oneNickelAndTwoDimes));
     }
 
     @Test
@@ -176,7 +185,8 @@ public class CoinBankTest {
         underTest.returnChange(BigDecimal.valueOf(0.35));
         List<Coin> threeNickels = buildCoinList(NICKEL, NICKEL, NICKEL);
         assertThat(underTest.availableCoins(), is(threeNickels));
-
+        List<Coin> dimeAndQuarter = buildCoinList(QUARTER, DIME);
+        assertThat(mSpyCoinReturn.availableCoins(), is(dimeAndQuarter));
     }
 
     @Test
@@ -186,6 +196,7 @@ public class CoinBankTest {
         underTest.returnChange(BigDecimal.valueOf(0.50));
         List<Coin> threeNickels = buildCoinList(NICKEL, NICKEL, NICKEL);
         assertThat(underTest.availableCoins(), is(threeNickels));
+        assertThat(mSpyCoinReturn.availableCoins(), is(buildCoinList(QUARTER, QUARTER)));
     }
 
 }
