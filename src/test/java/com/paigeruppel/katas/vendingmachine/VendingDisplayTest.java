@@ -5,10 +5,10 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import java.math.BigDecimal;
 
-import static com.paigeruppel.katas.vendingmachine.Coin.NICKEL;
 import static com.paigeruppel.katas.vendingmachine.Constants.*;
 import static java.math.BigInteger.ZERO;
 import static org.hamcrest.core.Is.is;
@@ -21,9 +21,10 @@ import static org.mockito.Mockito.when;
 public class VendingDisplayTest {
 
     @Mock
-    private CoinHolder coinHolder;
+    private CoinHolder mockCoinHolder;
     @Mock
-    private CoinBank coinBank;
+    private CoinBank mockCoinBank;
+
     @InjectMocks
     private VendingDisplay underTest;
 
@@ -41,35 +42,35 @@ public class VendingDisplayTest {
 
     @Test
     public void whenValueIsZeroShouldReadInsertCoin() {
-        when(coinBank.requiresExactChangeOnly()).thenReturn(false);
-        when(coinHolder.getAmountInHolder()).thenReturn(new BigDecimal(ZERO));
+        when(mockCoinBank.requiresExactChangeOnly()).thenReturn(false);
+        when(mockCoinHolder.getAmountInHolder()).thenReturn(new BigDecimal(ZERO));
         assertThat(underTest.displayMessage(), is("INSERT COIN"));
     }
 
     @Test
     public void whenNickelIsInHolderShouldDisplayFiveCents() {
-        when(coinHolder.getAmountInHolder()).thenReturn(FIVE_CENTS);
+        when(mockCoinHolder.getAmountInHolder()).thenReturn(FIVE_CENTS);
         assertThat(underTest.displayMessage(), is("CURRENT BALANCE: $0.05"));
     }
 
     @Test
     public void whenBankRequiresExactChangeOnlyDisplayShouldReadExactChangeOnly() {
-        when(coinHolder.getAmountInHolder()).thenReturn(new BigDecimal(ZERO));
-        when(coinBank.requiresExactChangeOnly()).thenReturn(true);
+        when(mockCoinHolder.getAmountInHolder()).thenReturn(new BigDecimal(ZERO));
+        when(mockCoinBank.requiresExactChangeOnly()).thenReturn(true);
         assertThat(underTest.displayMessage(), is("EXACT CHANGE ONLY"));
     }
 
     @Test
     public void whenBankRequiresExactChangeAndInsertedBalanceIsTenCentsDisplayShouldShowCurrentBalance() {
-        when(coinHolder.getAmountInHolder()).thenReturn(TEN_CENTS);
-        when(coinBank.requiresExactChangeOnly()).thenReturn(true);
+        when(mockCoinHolder.getAmountInHolder()).thenReturn(TEN_CENTS);
+        when(mockCoinBank.requiresExactChangeOnly()).thenReturn(true);
         assertThat(underTest.displayMessage(), is("CURRENT BALANCE: $0.10"));
     }
 
     @Test
     public void whenCurrentBalanceIsFiftyCentsShouldBeAbleToPurchaseChipsButNotCandyOrCola() {
-        when(coinHolder.getAmountInHolder()).thenReturn(FIFTY_CENTS);
-        when(coinBank.requiresExactChangeOnly()).thenReturn(false);
+        when(mockCoinHolder.getAmountInHolder()).thenReturn(FIFTY_CENTS);
+        when(mockCoinBank.requiresExactChangeOnly()).thenReturn(false);
         assertTrue(underTest.canPurchaseProduct(chips));
         assertFalse(underTest.canPurchaseProduct(candy));
         assertFalse(underTest.canPurchaseProduct(cola));
@@ -77,8 +78,8 @@ public class VendingDisplayTest {
 
     @Test
     public void whenCurrentBalanceIsSixtyFiveCentsShouldBeAbleToPurchaseChipsOrCandyButNotCola() {
-        when(coinHolder.getAmountInHolder()).thenReturn(SIXTY_FIVE_CENTS);
-        when(coinBank.requiresExactChangeOnly()).thenReturn(false);
+        when(mockCoinHolder.getAmountInHolder()).thenReturn(SIXTY_FIVE_CENTS);
+        when(mockCoinBank.requiresExactChangeOnly()).thenReturn(false);
         assertTrue(underTest.canPurchaseProduct(chips));
         assertTrue(underTest.canPurchaseProduct(candy));
         assertFalse(underTest.canPurchaseProduct(cola));
@@ -86,8 +87,8 @@ public class VendingDisplayTest {
 
     @Test
     public void whenCurrentBalanceIsOneDollarShouldBeAbleToPurchaseChipsCandyOrCola() {
-        when(coinHolder.getAmountInHolder()).thenReturn(ONE_DOLLAR);
-        when(coinBank.requiresExactChangeOnly()).thenReturn(false);
+        when(mockCoinHolder.getAmountInHolder()).thenReturn(ONE_DOLLAR);
+        when(mockCoinBank.requiresExactChangeOnly()).thenReturn(false);
         assertTrue(underTest.canPurchaseProduct(chips));
         assertTrue(underTest.canPurchaseProduct(candy));
         assertTrue(underTest.canPurchaseProduct(cola));
@@ -95,10 +96,17 @@ public class VendingDisplayTest {
 
     @Test
     public void whenCurrentBalanceIsFiftyCentsAndChipsArePurchasedShouldSendMoneyToBank() {
-        when(coinHolder.getAmountInHolder()).thenReturn(FIFTY_CENTS);
-        when(coinBank.requiresExactChangeOnly()).thenReturn(false);
-        Chips chips = new Chips();
+        when(mockCoinHolder.getAmountInHolder()).thenReturn(FIFTY_CENTS);
+        when(mockCoinBank.requiresExactChangeOnly()).thenReturn(false);
         underTest.selectProduct(chips);
+        assertThat(underTest.getCurrentBalance(), is(new BigDecimal(ZERO)));
+    }
+
+    @Test
+    public void whenCurrentBalanceIsSixtyFiveCentsAndCandyIsPurchasedShouldSendMoneyToBank() {
+        when(mockCoinHolder.getAmountInHolder()).thenReturn(SIXTY_FIVE_CENTS);
+        when(mockCoinBank.requiresExactChangeOnly()).thenReturn(false);
+        underTest.selectProduct(candy);
         assertThat(underTest.getCurrentBalance(), is(new BigDecimal(ZERO)));
     }
 

@@ -48,6 +48,7 @@ public class VendingDisplay {
             for (Coin c : coinHolder.availableCoins()) {
                 coinBank.accept(c);
             }
+            coinBank.returnChange(currentBalance.subtract(product.getPrice()));
             currentBalance = BigDecimal.ZERO;
         }
     }

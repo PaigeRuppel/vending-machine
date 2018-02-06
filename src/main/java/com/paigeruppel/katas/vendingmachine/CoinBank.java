@@ -12,10 +12,12 @@ public class CoinBank implements CoinAcceptor {
 
     private List<Coin> coinsInBank;
     private BigDecimal amountToReturn;
+    private CoinAcceptor returnCoinAcceptor;
 
     public CoinBank() {
         coinsInBank = new ArrayList<>();
         amountToReturn = new BigDecimal(ZERO);
+        returnCoinAcceptor = new CoinReturn();
     }
 
     public void accept(Coin coin) {
@@ -80,12 +82,14 @@ public class CoinBank implements CoinAcceptor {
 
     private void checkBankInventoryAndReturnFiveCents() {
         if (count(NICKEL) >= 1) {
+            returnCoinAcceptor.accept(NICKEL);
             coinsInBank.remove(NICKEL);
         }
     }
 
     private void checkBankInventoryAndReturnTenCents() {
         if (count(DIME) >= 1) {
+            returnCoinAcceptor.accept(DIME);
             coinsInBank.remove(DIME);
         } else {
             checkBankInventoryAndReturnFiveCents();
@@ -95,6 +99,7 @@ public class CoinBank implements CoinAcceptor {
 
     private void checkBankInventoryAndReturnTwentyFiveCents() {
         if (count(QUARTER) >= 1) {
+            returnCoinAcceptor.accept(QUARTER);
             coinsInBank.remove(QUARTER);
         } else {
             checkBankInventoryAndReturnTenCents();

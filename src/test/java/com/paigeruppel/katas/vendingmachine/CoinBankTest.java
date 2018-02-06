@@ -2,6 +2,9 @@ package com.paigeruppel.katas.vendingmachine;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,11 +17,17 @@ import static org.junit.Assert.*;
 
 public class CoinBankTest {
 
+    @Spy
+    private CoinReturn mSpyCoinReturn;
+
+    @InjectMocks
     private CoinBank underTest;
+
+
 
     @Before
     public void setup() {
-        underTest = new CoinBank();
+        MockitoAnnotations.initMocks(this);
     }
 
     private List<Coin> buildCoinList(Coin... args) {
@@ -84,12 +93,13 @@ public class CoinBankTest {
     }
 
     @Test
-    public void whenReturnAmountIs5CentsShouldRemoveANickelFromCoinsInBank() {
+    public void whenReturnAmountIs5CentsShouldRemoveANickelFromCoinsInBankAndCoinReturnShouldHoldANickel() {
         List<Coin> twoNickels = buildCoinList(NICKEL, NICKEL);
         underTest.stock(twoNickels);
         underTest.returnChange(BigDecimal.valueOf(0.05));
         List<Coin> oneNickel = buildCoinList(NICKEL);
         assertThat(underTest.availableCoins(), is(oneNickel));
+        assertThat(mSpyCoinReturn.availableCoins(), is(oneNickel));
     }
 
     @Test
