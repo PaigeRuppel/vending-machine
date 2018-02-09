@@ -5,9 +5,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
 import java.math.BigDecimal;
+import java.util.spi.CalendarDataProvider;
 
 import static com.paigeruppel.katas.vendingmachine.Constants.*;
 import static java.math.BigInteger.ZERO;
@@ -71,27 +71,27 @@ public class VendingDisplayTest {
     public void whenCurrentBalanceIsFiftyCentsShouldBeAbleToPurchaseChipsButNotCandyOrCola() {
         when(mockCoinHolder.getAmountInHolder()).thenReturn(FIFTY_CENTS);
         when(mockCoinBank.requiresExactChangeOnly()).thenReturn(false);
-        assertTrue(underTest.canPurchaseProduct(chips));
-        assertFalse(underTest.canPurchaseProduct(candy));
-        assertFalse(underTest.canPurchaseProduct(cola));
+        assertTrue(underTest.hasAdequatePaymentEntered(chips));
+        assertFalse(underTest.hasAdequatePaymentEntered(candy));
+        assertFalse(underTest.hasAdequatePaymentEntered(cola));
     }
 
     @Test
     public void whenCurrentBalanceIsSixtyFiveCentsShouldBeAbleToPurchaseChipsOrCandyButNotCola() {
         when(mockCoinHolder.getAmountInHolder()).thenReturn(SIXTY_FIVE_CENTS);
         when(mockCoinBank.requiresExactChangeOnly()).thenReturn(false);
-        assertTrue(underTest.canPurchaseProduct(chips));
-        assertTrue(underTest.canPurchaseProduct(candy));
-        assertFalse(underTest.canPurchaseProduct(cola));
+        assertTrue(underTest.hasAdequatePaymentEntered(chips));
+        assertTrue(underTest.hasAdequatePaymentEntered(candy));
+        assertFalse(underTest.hasAdequatePaymentEntered(cola));
     }
 
     @Test
     public void whenCurrentBalanceIsOneDollarShouldBeAbleToPurchaseChipsCandyOrCola() {
         when(mockCoinHolder.getAmountInHolder()).thenReturn(ONE_DOLLAR);
         when(mockCoinBank.requiresExactChangeOnly()).thenReturn(false);
-        assertTrue(underTest.canPurchaseProduct(chips));
-        assertTrue(underTest.canPurchaseProduct(candy));
-        assertTrue(underTest.canPurchaseProduct(cola));
+        assertTrue(underTest.hasAdequatePaymentEntered(chips));
+        assertTrue(underTest.hasAdequatePaymentEntered(candy));
+        assertTrue(underTest.hasAdequatePaymentEntered(cola));
     }
 
     @Test
@@ -109,5 +109,6 @@ public class VendingDisplayTest {
         underTest.selectProduct(candy);
         assertThat(underTest.getCurrentBalance(), is(new BigDecimal(ZERO)));
     }
+
 
 }

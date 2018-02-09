@@ -1,11 +1,12 @@
 package com.paigeruppel.katas.vendingmachine;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CandyRack implements ProductRack {
 
-    private List<Product> inventory;
+    private List<Candy> inventory;
     private final Integer MAX_CAPACITY = 20;
 
     public CandyRack() {
@@ -27,7 +28,7 @@ public class CandyRack implements ProductRack {
     public void dispense() {
         inventory.remove(0);
     }
-
+    
     public Integer availableNumberProducts() {
         return inventory.size();
     }

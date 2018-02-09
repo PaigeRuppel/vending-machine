@@ -38,13 +38,13 @@ public class VendingDisplay {
     }
 
 
-    public boolean canPurchaseProduct(Product product) {
+    public boolean hasAdequatePaymentEntered(Product product) {
         currentBalance = coinHolder.getAmountInHolder();
         return currentBalance.compareTo(product.getPrice()) >= 0;
     }
 
     public void selectProduct(Product product) {
-        if (canPurchaseProduct(product)) {
+        if (hasAdequatePaymentEntered(product)) {
             for (Coin c : coinHolder.availableCoins()) {
                 coinBank.accept(c);
             }
