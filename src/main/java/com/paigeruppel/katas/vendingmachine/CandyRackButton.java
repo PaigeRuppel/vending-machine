@@ -1,14 +1,18 @@
 package com.paigeruppel.katas.vendingmachine;
 
-public class CandyButton {
+public class CandyRackButton {
 
     private CandyRack rack;
 
-    public CandyButton() {
+    public CandyRackButton() {
         rack = new CandyRack();
     }
 
     public void push() {
-        rack.dispense();
+        try{
+            rack.dispense();
+        } catch (Exception e){
+
+        }
     }
 }

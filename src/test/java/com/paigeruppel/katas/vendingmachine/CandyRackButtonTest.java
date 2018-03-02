@@ -9,12 +9,12 @@ import org.mockito.Spy;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class CandyButtonTest {
+public class CandyRackButtonTest {
 
     @Spy
     private CandyRack mSpyCandyRack;
     @InjectMocks
-    private CandyButton underTest;
+    private CandyRackButton underTest;
 
     @Before
     public void setup() {
