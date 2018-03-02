@@ -1,8 +1,12 @@
 package com.paigeruppel.katas.vendingmachine;
 
-public class ChipsRackButton {
+public class ChipsRackButton implements Button {
 
-    private ChipsRack rack;
+    private ProductRack rack;
+
+    public ChipsRackButton() {
+        rack = new ChipsRack();
+    }
 
     public void push() {
         try{

@@ -1,8 +1,12 @@
 package com.paigeruppel.katas.vendingmachine;
 
-public class ColaRackButton {
+public class ColaRackButton implements Button {
 
-    private ColaRack rack;
+    private ProductRack rack;
+
+    public ColaRackButton() {
+        rack = new ColaRack();
+    }
 
     public void push() {
         try{

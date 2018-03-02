@@ -1,8 +1,8 @@
 package com.paigeruppel.katas.vendingmachine;
 
-public class CandyRackButton {
+public class CandyRackButton implements Button {
 
-    private CandyRack rack;
+    private ProductRack rack;
 
     public CandyRackButton() {
         rack = new CandyRack();
