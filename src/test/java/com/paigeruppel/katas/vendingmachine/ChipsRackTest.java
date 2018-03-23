@@ -32,7 +32,7 @@ public class ChipsRackTest {
     }
 
     @Test
-    public void dispensingOneProductShouldRemoveOneFromInventory() {
+    public void dispensingOneProductShouldRemoveOneFromInventory() throws SoldOutException {
         underTest = new ChipsRack();
         underTest.stock();
         underTest.dispense();
@@ -40,7 +40,7 @@ public class ChipsRackTest {
     }
 
     @Test
-    public void dispensingTwoProductsShouldRemoveTwoFromInventory() {
+    public void dispensingTwoProductsShouldRemoveTwoFromInventory() throws SoldOutException {
         underTest = new ChipsRack();
         underTest.stock();
         underTest.dispense();

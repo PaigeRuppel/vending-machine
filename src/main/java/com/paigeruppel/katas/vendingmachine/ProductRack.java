@@ -12,5 +12,5 @@ public interface ProductRack {
 
     boolean isSoldOut();
 
-    void dispense();
+    void dispense() throws SoldOutException;
 }
