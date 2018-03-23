@@ -14,6 +14,8 @@ public class VendingDisplay {
     private CoinHolder coinHolder;
     private CoinBank coinBank;
 
+// Vending display should just be a GUI - responsibility is to interact with the vending machine user
+// - it needs to have knowledge of the balance, but maybe not directly? Should also pull in all of the buttons/commands
 
     public VendingDisplay() {
         this.coinHolder = new CoinHolder();
