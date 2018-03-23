@@ -25,8 +25,12 @@ public class CandyRack implements ProductRack {
     }
 
     @Override
-    public void dispense() {
-        inventory.remove(0);
+    public void dispense() throws SoldOutException {
+        if (!isSoldOut()) {
+            inventory.remove(0);
+        } else {
+            throw new SoldOutException("The product is sold out, please make another selection");
+        }
     }
     
     public Integer availableNumberProducts() {

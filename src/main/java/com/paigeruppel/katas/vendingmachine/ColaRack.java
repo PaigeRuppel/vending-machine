@@ -14,7 +14,7 @@ public class ColaRack implements ProductRack {
     @Override
     public void stock() {
         for (int i = inventory.size(); i < MAX_CAPACITY; i++) {
-            inventory.add(new Chips());
+            inventory.add(new Cola());
         }
     }
 
@@ -24,8 +24,12 @@ public class ColaRack implements ProductRack {
     }
 
     @Override
-    public void dispense() {
-        inventory.remove(0);
+    public void dispense() throws SoldOutException {
+        if (!isSoldOut()) {
+            inventory.remove(0);
+        } else {
+            throw new SoldOutException("The product is sold out, please make another selection");
+        }
     }
 
     public Integer availableNumberProducts() {
