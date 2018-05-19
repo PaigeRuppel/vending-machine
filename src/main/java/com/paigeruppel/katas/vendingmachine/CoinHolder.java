@@ -20,7 +20,7 @@ public class CoinHolder {
     }
 
     public void returnCoins() {
-        coinReturn.acceptCoins(coinsInHolder);
+        coinReturn.accept(coinsInHolder);
         coinsInHolder.clear();
     }
 
@@ -29,7 +29,7 @@ public class CoinHolder {
     }
 
     public void sendCoinsToBank() {
-        coinBank.acceptCoins(coinsInHolder);
+        coinBank.accept(coinsInHolder);
         coinsInHolder.clear();
     }
 }

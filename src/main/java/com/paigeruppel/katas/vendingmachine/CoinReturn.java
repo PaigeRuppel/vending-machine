@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
-public class CoinReturn {
+public class CoinReturn implements CoinAcceptor {
 
     private Collection<Coin> coinsInReturn;
 
@@ -15,11 +15,14 @@ public class CoinReturn {
         coinsInReturn = new ArrayList<>();
     }
 
-    public void acceptCoins(Collection<Coin> coins) {
+    @Override
+    public void accept(Collection<Coin> coins) {
         coinsInReturn = coins.stream().collect(toList());
     }
 
     public Collection<Coin> getCoinsInReturn() {
         return coinsInReturn;
     }
+
+
 }

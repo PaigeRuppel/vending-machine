@@ -19,7 +19,7 @@ public class CoinBank {
         return coinsInBank;
     }
 
-    public void acceptCoins(Collection<Coin> coins) {
+    public void accept(Collection<Coin> coins) {
         coinsInBank = coins.stream().collect(toList());
     }
 }
