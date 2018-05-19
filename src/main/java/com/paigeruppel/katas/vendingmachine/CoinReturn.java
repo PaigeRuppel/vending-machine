@@ -9,17 +9,17 @@ import static java.util.stream.Collectors.toList;
 
 public class CoinReturn {
 
-    private Collection<String> coinsInReturn;
+    private Collection<Coin> coinsInReturn;
 
     public CoinReturn() {
         coinsInReturn = new ArrayList<>();
     }
 
-    public void acceptCoins(List<String> coins) {
+    public void acceptCoins(List<Coin> coins) {
         coinsInReturn = coins.stream().collect(toList());
     }
 
-    public Collection<String> getCoinsInReturn() {
+    public Collection<Coin> getCoinsInReturn() {
         return coinsInReturn;
     }
 }

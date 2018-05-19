@@ -6,13 +6,13 @@ import java.util.List;
 
 public class CoinHolder {
 
-    Collection<String> coinsInHolder;
+    Collection<Coin> coinsInHolder;
 
     public CoinHolder() {
         coinsInHolder = new ArrayList<>();
     }
 
-    public void acceptCoin(String coin) {
+    public void acceptCoin(Coin coin) {
         coinsInHolder.add(coin);
     }
 
@@ -20,7 +20,7 @@ public class CoinHolder {
         coinsInHolder.clear();
     }
 
-    public Collection<String> getCoinsInHolder() {
+    public Collection<Coin> getCoinsInHolder() {
         return coinsInHolder;
     }
 
