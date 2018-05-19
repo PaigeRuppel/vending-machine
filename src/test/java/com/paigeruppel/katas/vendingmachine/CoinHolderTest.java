@@ -16,9 +16,9 @@ public class CoinHolderTest {
     public void shouldAcceptMultipleCoins() {
         CoinReturn coinReturn = new CoinReturn();
         CoinHolder underTest = new CoinHolder(coinReturn, new CoinBank());
-        underTest.acceptCoin(NICKEL);
-        underTest.acceptCoin(DIME);
-        Collection<Coin> coinsInHolder = underTest.getCoinsInHolder();
+        underTest.accept(NICKEL);
+        underTest.accept(DIME);
+        Collection<Coin> coinsInHolder = underTest.getCoins();
         assertThat(coinsInHolder, is(asList(NICKEL, DIME)));
     }
 
@@ -26,17 +26,17 @@ public class CoinHolderTest {
     public void shouldReturnChange() {
         CoinReturn coinReturn = new CoinReturn();
         CoinHolder underTest = new CoinHolder(coinReturn, new CoinBank());
-        underTest.acceptCoin(NICKEL);
+        underTest.accept(NICKEL);
         underTest.returnCoins();
-        assertThat(underTest.getCoinsInHolder(), is(Collections.emptyList()));
+        assertThat(underTest.getCoins(), is(Collections.emptyList()));
     }
 
     @Test
     public void shouldSendCoinsToBank() {
         CoinReturn coinReturn = new CoinReturn();
         CoinHolder underTest = new CoinHolder(coinReturn, new CoinBank());
-        underTest.acceptCoin(NICKEL);
+        underTest.accept(NICKEL);
         underTest.sendCoinsToBank();
-        assertThat(underTest.getCoinsInHolder(), is(Collections.emptyList()));
+        assertThat(underTest.getCoins(), is(Collections.emptyList()));
     }
 }

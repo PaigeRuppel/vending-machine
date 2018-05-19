@@ -20,7 +20,8 @@ public class CoinReturn implements CoinAcceptor {
         coinsInReturn = coins.stream().collect(toList());
     }
 
-    public Collection<Coin> getCoinsInReturn() {
+    @Override
+    public Collection<Coin> getCoins() {
         return coinsInReturn;
     }
 

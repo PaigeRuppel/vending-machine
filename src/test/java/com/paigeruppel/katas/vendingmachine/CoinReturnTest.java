@@ -13,7 +13,7 @@ public class CoinReturnTest {
     public void shouldAcceptCoinsFromCoinHolder() {
         CoinReturn underTest = new CoinReturn();
         CoinHolder holder = new CoinHolder(underTest, new CoinBank());
-        holder.acceptCoin(NICKEL);
+        holder.accept(NICKEL);
         holder.returnCoins();
         assertThat(underTest.getCoinsInReturn(), is(asList(NICKEL)));
     }

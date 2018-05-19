@@ -11,11 +11,11 @@ public class CoinBankTest {
 
     @Test
     public void coinBankShouldAcceptCoinsFromHolder() {
-        CoinReturn coinReturn = new CoinReturn();
-        CoinBank underTest = new CoinBank();
+        CoinAcceptor coinReturn = new CoinReturn();
+        CoinAcceptor underTest = new CoinBank();
         CoinHolder holder = new CoinHolder(coinReturn, underTest);
-        holder.acceptCoin(NICKEL);
+        holder.accept(NICKEL);
         holder.sendCoinsToBank();
-        assertThat(underTest.getCoinsInBank(), is(asList(NICKEL)));
+        assertThat(underTest.getCoins(), is(asList(NICKEL)));
     }
 }
