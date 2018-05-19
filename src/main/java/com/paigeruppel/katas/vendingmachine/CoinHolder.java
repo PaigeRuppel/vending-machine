@@ -1,61 +1,42 @@
 package com.paigeruppel.katas.vendingmachine;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
-
-import static com.paigeruppel.katas.vendingmachine.Constants.CENTS;
+import java.util.Collection;
 
 public class CoinHolder implements CoinAcceptor {
 
+    private Collection<Coin> coinsInHolder;
+    private CoinAcceptor coinReturn;
+    private CoinAcceptor coinBank;
 
-    private CoinAcceptor depositCoinAcceptor;
-    private CoinAcceptor returnCoinAcceptor;
-    private Sensor sensor;
-    private BigDecimal amountInHolder;
-    private List<Coin> coinsInHolder;
-
-    public CoinHolder(CoinAcceptor depositCoinAcceptor, CoinAcceptor returnCoinAcceptor) {
-        this.depositCoinAcceptor = depositCoinAcceptor;
-        this.returnCoinAcceptor = returnCoinAcceptor;
-        sensor = new Sensor();
-        amountInHolder = new BigDecimal(0.0, CENTS);
+    public CoinHolder(CoinAcceptor coinReturn, CoinAcceptor coinBank) {
         coinsInHolder = new ArrayList<>();
+        this.coinReturn = coinReturn;
+        this.coinBank = coinBank;
     }
 
-    public CoinHolder() {
-        sensor = new Sensor();
-        amountInHolder = new BigDecimal(0.0, CENTS);
-        coinsInHolder = new ArrayList<>();
+    @Override
+    public void accept(Collection<Coin> coins) {
+        coins.stream().forEach(this::accept);
     }
 
+    @Override
     public void accept(Coin coin) {
-        amountInHolder = amountInHolder.add(sensor.detectValueOf(coin));
         coinsInHolder.add(coin);
     }
 
-    public List<Coin> availableCoins() {
+    @Override
+    public Collection<Coin> getCoins() {
         return coinsInHolder;
     }
 
-
-    public void depositCoins() {
-        for (Coin c : coinsInHolder) {
-            depositCoinAcceptor.accept(c);
-        }
-        amountInHolder = new BigDecimal(0.0, CENTS);
+    public void sendCoinsToBank() {
+        coinBank.accept(coinsInHolder);
         coinsInHolder.clear();
     }
 
     public void returnCoins() {
-        for (Coin c : coinsInHolder) {
-            returnCoinAcceptor.accept(c);
-        }
-        amountInHolder = new BigDecimal(0.0, CENTS);
+        coinReturn.accept(coinsInHolder);
         coinsInHolder.clear();
-    }
-
-    public BigDecimal getAmountInHolder() {
-        return amountInHolder.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 }

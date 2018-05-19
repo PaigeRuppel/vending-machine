@@ -1,10 +1,10 @@
 package com.paigeruppel.katas.vendingmachine;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface CoinAcceptor {
 
+    void accept(Collection<Coin> coins);
     void accept(Coin coin);
-
-    List<Coin> availableCoins();
+    Collection<Coin> getCoins();
 }
