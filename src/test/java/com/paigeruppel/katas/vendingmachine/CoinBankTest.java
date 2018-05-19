@@ -18,4 +18,16 @@ public class CoinBankTest {
         holder.sendCoinsToBank();
         assertThat(underTest.getCoins(), is(asList(NICKEL)));
     }
+
+    @Test
+    public void coinBankShouldAcceptCoinsMultipleTimesAndStoreAllInBank() {
+        CoinAcceptor coinReturn = new CoinReturn();
+        CoinAcceptor underTest = new CoinBank();
+        CoinHolder holder = new CoinHolder(coinReturn, underTest);
+        holder.accept(NICKEL);
+        holder.sendCoinsToBank();
+        holder.accept(DIME);
+        holder.sendCoinsToBank();
+        assertThat(underTest.getCoins(), is(asList(NICKEL, DIME)));
+    }
 }

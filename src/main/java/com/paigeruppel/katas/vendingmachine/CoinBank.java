@@ -21,7 +21,12 @@ public class CoinBank implements CoinAcceptor {
 
     @Override
     public void accept(Collection<Coin> coins) {
-        coinsInBank = coins.stream().collect(toList());
+        coins.stream().forEach(coin -> accept(coin));
+    }
+
+    @Override
+    public void accept(Coin coin) {
+        coinsInBank.add(coin);
     }
 
     @Override

@@ -17,16 +17,12 @@ public class CoinHolder implements CoinAcceptor {
 
     @Override
     public void accept(Collection<Coin> coins) {
+        coins.stream().forEach(coin -> accept(coin));
     }
 
     @Override
     public void accept(Coin coin) {
         coinsInHolder.add(coin);
-    }
-
-    public void returnCoins() {
-        coinReturn.accept(coinsInHolder);
-        coinsInHolder.clear();
     }
 
     @Override
@@ -36,6 +32,11 @@ public class CoinHolder implements CoinAcceptor {
 
     public void sendCoinsToBank() {
         coinBank.accept(coinsInHolder);
+        coinsInHolder.clear();
+    }
+
+    public void returnCoins() {
+        coinReturn.accept(coinsInHolder);
         coinsInHolder.clear();
     }
 }

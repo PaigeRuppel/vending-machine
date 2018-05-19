@@ -15,6 +15,6 @@ public class CoinReturnTest {
         CoinHolder holder = new CoinHolder(underTest, new CoinBank());
         holder.accept(NICKEL);
         holder.returnCoins();
-        assertThat(underTest.getCoinsInReturn(), is(asList(NICKEL)));
+        assertThat(underTest.getCoins(), is(asList(NICKEL)));
     }
 }

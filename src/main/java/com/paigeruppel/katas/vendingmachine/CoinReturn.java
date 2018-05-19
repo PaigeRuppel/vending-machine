@@ -21,6 +21,10 @@ public class CoinReturn implements CoinAcceptor {
     }
 
     @Override
+    public void accept(Coin coin) {
+    }
+
+    @Override
     public Collection<Coin> getCoins() {
         return coinsInReturn;
     }
