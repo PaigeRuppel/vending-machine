@@ -15,7 +15,7 @@ public class CoinReturn {
         coinsInReturn = new ArrayList<>();
     }
 
-    public void acceptCoins(List<Coin> coins) {
+    public void acceptCoins(Collection<Coin> coins) {
         coinsInReturn = coins.stream().collect(toList());
     }
 

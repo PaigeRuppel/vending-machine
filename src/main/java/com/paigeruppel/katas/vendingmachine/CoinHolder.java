@@ -2,14 +2,17 @@ package com.paigeruppel.katas.vendingmachine;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class CoinHolder {
 
-    Collection<Coin> coinsInHolder;
+    private Collection<Coin> coinsInHolder;
+    private CoinReturn coinReturn;
+    private CoinBank coinBank;
 
-    public CoinHolder() {
+    public CoinHolder(CoinReturn coinReturn, CoinBank coinBank) {
         coinsInHolder = new ArrayList<>();
+        this.coinReturn = coinReturn;
+        this.coinBank = coinBank;
     }
 
     public void acceptCoin(Coin coin) {
@@ -17,6 +20,7 @@ public class CoinHolder {
     }
 
     public void returnCoins() {
+        coinReturn.acceptCoins(coinsInHolder);
         coinsInHolder.clear();
     }
 
@@ -25,6 +29,7 @@ public class CoinHolder {
     }
 
     public void sendCoinsToBank() {
+        coinBank.acceptCoins(coinsInHolder);
         coinsInHolder.clear();
     }
 }
