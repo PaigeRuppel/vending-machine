@@ -28,4 +28,10 @@ public class ColaRackButtonTest {
         assertThat(mSpyColaRack.availableNumberProducts(), is(19));
     }
 
+    @Test
+    public void pushingTheCandyButtonWithNoInventoryShouldDoSomething() {
+        underTest.push();
+        assertThat(underTest.getStatus(), is("The product is sold out, please make another selection"));
+    }
+
 }
