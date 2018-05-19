@@ -17,4 +17,15 @@ public class CoinReturnTest {
         holder.returnCoins();
         assertThat(underTest.getCoins(), is(asList(NICKEL)));
     }
+
+    @Test
+    public void coinsShouldAccumulateInReturnIfNotCleared() {
+        CoinReturn underTest = new CoinReturn();
+        CoinHolder holder = new CoinHolder(underTest, new CoinBank());
+        holder.accept(NICKEL);
+        holder.returnCoins();
+        holder.accept(DIME);
+        holder.returnCoins();
+        assertThat(underTest.getCoins(), is(asList(NICKEL, DIME)));
+    }
 }

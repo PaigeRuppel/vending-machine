@@ -17,11 +17,12 @@ public class CoinReturn implements CoinAcceptor {
 
     @Override
     public void accept(Collection<Coin> coins) {
-        coinsInReturn = coins.stream().collect(toList());
+        coins.stream().forEach(this::accept);
     }
 
     @Override
     public void accept(Coin coin) {
+        coinsInReturn.add(coin);
     }
 
     @Override

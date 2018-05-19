@@ -17,7 +17,7 @@ public class CoinHolder implements CoinAcceptor {
 
     @Override
     public void accept(Collection<Coin> coins) {
-        coins.stream().forEach(coin -> accept(coin));
+        coins.stream().forEach(this::accept);
     }
 
     @Override
