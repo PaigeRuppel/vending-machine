@@ -2,6 +2,7 @@ package com.paigeruppel.katas.vendingmachine;
 
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,11 +14,12 @@ import static org.mockito.Matchers.contains;
 public class CoinHolderTest {
 
     @Test
-    public void shouldAcceptChange() {
+    public void shouldAcceptMultipleCoins() {
         CoinHolder underTest = new CoinHolder();
         underTest.acceptCoin("nickel");
-        List<String> coinsInHolder = underTest.getCoinsInHolder();
-        assertThat(coinsInHolder, is(asList("nickel")));
+        underTest.acceptCoin("dime");
+        Collection<String> coinsInHolder = underTest.getCoinsInHolder();
+        assertThat(coinsInHolder, is(asList("nickel", "dime")));
     }
 
     @Test
@@ -25,6 +27,14 @@ public class CoinHolderTest {
         CoinHolder underTest = new CoinHolder();
         underTest.acceptCoin("nickel");
         underTest.returnCoins();
+        assertThat(underTest.getCoinsInHolder(), is(Collections.emptyList()));
+    }
+
+    @Test
+    public void shouldSendCoinsToBank() {
+        CoinHolder underTest = new CoinHolder();
+        underTest.acceptCoin("nickel");
+        underTest.sendCoinsToBank();
         assertThat(underTest.getCoinsInHolder(), is(Collections.emptyList()));
     }
 }

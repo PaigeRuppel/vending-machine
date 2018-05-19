@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CoinHolder {
 
-    List<String> coinsInHolder;
+    Collection<String> coinsInHolder;
 
     public CoinHolder() {
         coinsInHolder = new ArrayList<>();
@@ -20,7 +20,11 @@ public class CoinHolder {
         coinsInHolder.clear();
     }
 
-    public List<String> getCoinsInHolder() {
+    public Collection<String> getCoinsInHolder() {
         return coinsInHolder;
+    }
+
+    public void sendCoinsToBank() {
+        coinsInHolder.clear();
     }
 }
